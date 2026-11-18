@@ -1,0 +1,24 @@
+{
+  "seed": 42,
+  "dataset": "MovieLens 20M",
+  "dataset_version": "ml-20m",
+  "prd_dataset": "MovieLens 25M",
+  "dataset_deviation_note": "The PRD specifies MovieLens 25M. Every experiment in this project uses MovieLens 20M, which is the dataset that was supplied.",
+  "min_user_ratings": 5,
+  "min_movie_ratings": 5,
+  "positive_rating_threshold": 4.0,
+  "rating_scale": [
+    0.5,
+    5.0
+  ],
+  "split": "chronological_leave_one_out",
+  "eval_negatives": 99,
+  "top_k": 10,
+  "notes": "Thresholds carried over unchanged from the original Colab notebook.",
+  "num_users": 138493,
+  "num_movies": 18345,
+  "train_rows": 19707038,
+  "validation_rows": 138493,
+  "test_rows": 138493,
+  "generated_at": "2026-11-18T05:04:19"
+}

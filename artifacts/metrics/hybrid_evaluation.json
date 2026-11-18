@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-11-18T05:36:20",
+  "status": "ok",
+  "note": "Experimental hybrid re-ranking (PRD stretch goal). Normalisation is per candidate list; genre profiles use training positives only. These are NOT the headline NeuMF results.",
+  "pure_neumf": {
+    "HR@10": 0.9086529484258878,
+    "NDCG@10": 0.6596435381586141
+  },
+  "grid": [
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "HR@10": 0.9086529484258878,
+      "NDCG@10": 0.6596435381586141
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.1,
+      "gamma": 0.0,
+      "HR@10": 0.9108936774097173,
+      "NDCG@10": 0.6660436838511807
+    },
+    {
+      "alpha": 0.8,
+      "beta": 0.2,
+      "gamma": 0.0,
+      "HR@10": 0.9038229326163001,
+      "NDCG@10": 0.651688379497098
+    },
+    {
+      "alpha": 0.8,
+      "beta": 0.1,
+      "gamma": 0.1,
+      "HR@10": 0.9100098343105402,
+      "NDCG@10": 0.6634975871254937
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.2,
+      "gamma": 0.1,
+      "HR@10": 0.9046943272211226,
+      "NDCG@10": 0.6518916405540343
+    },
+    {
+      "alpha": 0.6,
+      "beta": 0.3,
+      "gamma": 0.1,
+      "HR@10": 0.887005016743225,
+      "NDCG@10": 0.6223904207558467
+    }
+  ],
+  "best": {
+    "alpha": 0.9,
+    "beta": 0.1,
+    "gamma": 0.0,
+    "HR@10": 0.9108936774097173,
+    "NDCG@10": 0.6660436838511807
+  },
+  "lift_vs_pure_neumf": {
+    "HR@10_pct": 0.247,
+    "NDCG@10_pct": 0.97
+  },
+  "evaluated_users": 80331
+}

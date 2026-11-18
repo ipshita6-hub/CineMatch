@@ -1,0 +1,104 @@
+[
+  {
+    "experiment_id": "MatrixFactorization-2026-11-18T05:08:52",
+    "model": "MatrixFactorization",
+    "config": {
+      "architecture": "Matrix Factorization (implicit, BPR-style BCE)",
+      "num_users": 138493,
+      "num_movies": 18345,
+      "embedding_dim": 32,
+      "interaction": "dot product + user/item/global bias"
+    },
+    "training": {
+      "positives": 5000000,
+      "negatives_per_positive": 4,
+      "batch_size": 8192,
+      "learning_rate": 0.001,
+      "weight_decay": 1e-06,
+      "optimizer": "Adam",
+      "loss": "BCEWithLogitsLoss",
+      "seed": 42,
+      "device": "mps",
+      "total_available_positives": 9832534,
+      "positive_subsample_cap": 5000000
+    },
+    "best_epoch": 6,
+    "test_HR@10": 0.865070769690406,
+    "test_NDCG@10": 0.5974827206270897,
+    "evaluated_at": "2026-11-18T05:14:54"
+  },
+  {
+    "experiment_id": "NeuMF-2026-11-18T05:13:07",
+    "model": "NeuMF",
+    "config": {
+      "architecture": "NeuMF (GMF + MLP fusion), He et al. WWW 2017",
+      "num_users": 138493,
+      "num_movies": 18345,
+      "gmf_embedding_dim": 32,
+      "mlp_embedding_dim": 32,
+      "mlp_layers": [
+        64,
+        32,
+        16
+      ],
+      "dropout": 0.1,
+      "fusion_input_dim": 48,
+      "output": "single logit (implicit-feedback ranking score)"
+    },
+    "training": {
+      "positives": 5000000,
+      "negatives_per_positive": 4,
+      "batch_size": 8192,
+      "learning_rate": 0.001,
+      "weight_decay": 1e-06,
+      "optimizer": "Adam",
+      "loss": "BCEWithLogitsLoss",
+      "seed": 42,
+      "device": "mps",
+      "total_available_positives": 9832534,
+      "positive_subsample_cap": 5000000
+    },
+    "best_epoch": 9,
+    "test_HR@10": 0.9086529484258878,
+    "test_NDCG@10": 0.6596435381586141,
+    "evaluated_at": "2026-11-18T05:14:54"
+  },
+  {
+    "experiment_id": "NeuMF-d16-neg2",
+    "model": "NeuMF",
+    "config": {
+      "architecture": "NeuMF (GMF + MLP fusion), He et al. WWW 2017",
+      "num_users": 138493,
+      "num_movies": 18345,
+      "gmf_embedding_dim": 16,
+      "mlp_embedding_dim": 16,
+      "mlp_layers": [
+        32,
+        16,
+        8
+      ],
+      "dropout": 0.1,
+      "fusion_input_dim": 24,
+      "output": "single logit (implicit-feedback ranking score)"
+    },
+    "training": {
+      "positives": 2000000,
+      "negatives_per_positive": 2,
+      "batch_size": 8192,
+      "learning_rate": 0.001,
+      "weight_decay": 1e-06,
+      "optimizer": "Adam",
+      "loss": "BCEWithLogitsLoss",
+      "seed": 42,
+      "device": "mps",
+      "experiment": "d16-neg2",
+      "total_available_positives": 9832534,
+      "positive_subsample_cap": 2000000
+    },
+    "best_epoch": 5,
+    "test_HR@10": 0.850530928284224,
+    "test_NDCG@10": 0.574753407885438,
+    "test_ROC_AUC": 0.9491648825775478,
+    "evaluated_at": "2026-11-18T05:37:47"
+  }
+]

@@ -1,0 +1,51 @@
+{
+  "model": "RatingPredictor",
+  "history": [
+    {
+      "epoch": 1,
+      "train_mse": 0.78404,
+      "train_rmse": 0.88546,
+      "val_rmse": 0.90625,
+      "val_mae": 0.6994,
+      "seconds": 5.4
+    },
+    {
+      "epoch": 2,
+      "train_mse": 0.64273,
+      "train_rmse": 0.8017,
+      "val_rmse": 0.88773,
+      "val_mae": 0.68163,
+      "seconds": 4.8
+    },
+    {
+      "epoch": 3,
+      "train_mse": 0.56417,
+      "train_rmse": 0.75111,
+      "val_rmse": 0.88748,
+      "val_mae": 0.67931,
+      "seconds": 4.8
+    },
+    {
+      "epoch": 4,
+      "train_mse": 0.49848,
+      "train_rmse": 0.70603,
+      "val_rmse": 0.8995,
+      "val_mae": 0.68817,
+      "seconds": 4.8
+    },
+    {
+      "epoch": 5,
+      "train_mse": 0.44807,
+      "train_rmse": 0.66938,
+      "val_rmse": 0.91534,
+      "val_mae": 0.6985,
+      "seconds": 4.8
+    }
+  ],
+  "best_epoch": 3,
+  "best_val_RMSE": 0.88748,
+  "epochs_run": 5,
+  "early_stopped": true,
+  "total_seconds": 24.6,
+  "checkpoint": "/Users/lakshoswal04/Desktop/Ipshuuuu_OJT/artifacts/checkpoints/rating_predictor.pt"
+}

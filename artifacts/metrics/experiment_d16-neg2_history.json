@@ -1,0 +1,51 @@
+{
+  "model": "experiment:d16-neg2",
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.31134,
+      "val_loss": 0.19254,
+      "val_HR@10": 0.8112,
+      "val_NDCG@10": 0.53252,
+      "seconds": 4.3
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.24575,
+      "val_loss": 0.17756,
+      "val_HR@10": 0.8279,
+      "val_NDCG@10": 0.54955,
+      "seconds": 3.9
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.22415,
+      "val_loss": 0.16623,
+      "val_HR@10": 0.8449,
+      "val_NDCG@10": 0.56572,
+      "seconds": 3.5
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.209,
+      "val_loss": 0.15748,
+      "val_HR@10": 0.8543,
+      "val_NDCG@10": 0.57708,
+      "seconds": 3.5
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.19887,
+      "val_loss": 0.15252,
+      "val_HR@10": 0.8615,
+      "val_NDCG@10": 0.58442,
+      "seconds": 3.5
+    }
+  ],
+  "best_epoch": 5,
+  "best_val_HR@10": 0.8615,
+  "early_stopped": false,
+  "epochs_run": 5,
+  "total_seconds": 18.8,
+  "checkpoint": "/Users/lakshoswal04/Desktop/Ipshuuuu_OJT/artifacts/checkpoints/experiment_d16-neg2.pt"
+}

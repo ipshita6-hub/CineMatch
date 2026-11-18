@@ -1,0 +1,1916 @@
+{
+  "raw": {
+    "rating_rows": 20000263,
+    "unique_users": 138493,
+    "unique_movies_in_ratings": 26744,
+    "movies_in_movies_csv": 27278,
+    "rating_min": 0.5,
+    "rating_max": 5.0,
+    "timestamp_min": 789652004,
+    "timestamp_max": 1427784002,
+    "missing_ratings_cells": 0,
+    "missing_movies_cells": 0,
+    "exact_duplicate_rating_rows": 0,
+    "repeated_user_movie_pairs": 0,
+    "orphan_movie_ids": 0,
+    "tags_rows": 465564
+  },
+  "rating_distribution": [
+    {
+      "rating": 0.5,
+      "count": 239125,
+      "percentage": 1.1956
+    },
+    {
+      "rating": 1.0,
+      "count": 680732,
+      "percentage": 3.4036
+    },
+    {
+      "rating": 1.5,
+      "count": 279252,
+      "percentage": 1.3962
+    },
+    {
+      "rating": 2.0,
+      "count": 1430997,
+      "percentage": 7.1549
+    },
+    {
+      "rating": 2.5,
+      "count": 883398,
+      "percentage": 4.4169
+    },
+    {
+      "rating": 3.0,
+      "count": 4291193,
+      "percentage": 21.4557
+    },
+    {
+      "rating": 3.5,
+      "count": 2200156,
+      "percentage": 11.0006
+    },
+    {
+      "rating": 4.0,
+      "count": 5561926,
+      "percentage": 27.8093
+    },
+    {
+      "rating": 4.5,
+      "count": 1534824,
+      "percentage": 7.674
+    },
+    {
+      "rating": 5.0,
+      "count": 2898660,
+      "percentage": 14.4931
+    }
+  ],
+  "rating_summary": {
+    "mean": 3.5255,
+    "median": 3.5,
+    "std": 1.052
+  },
+  "genre_distribution": [
+    {
+      "genre": "Drama",
+      "movie_count": 13344
+    },
+    {
+      "genre": "Comedy",
+      "movie_count": 8374
+    },
+    {
+      "genre": "Thriller",
+      "movie_count": 4178
+    },
+    {
+      "genre": "Romance",
+      "movie_count": 4127
+    },
+    {
+      "genre": "Action",
+      "movie_count": 3520
+    },
+    {
+      "genre": "Crime",
+      "movie_count": 2939
+    },
+    {
+      "genre": "Horror",
+      "movie_count": 2611
+    },
+    {
+      "genre": "Documentary",
+      "movie_count": 2471
+    },
+    {
+      "genre": "Adventure",
+      "movie_count": 2329
+    },
+    {
+      "genre": "Sci-Fi",
+      "movie_count": 1743
+    },
+    {
+      "genre": "Mystery",
+      "movie_count": 1514
+    },
+    {
+      "genre": "Fantasy",
+      "movie_count": 1412
+    },
+    {
+      "genre": "War",
+      "movie_count": 1194
+    },
+    {
+      "genre": "Children",
+      "movie_count": 1139
+    },
+    {
+      "genre": "Musical",
+      "movie_count": 1036
+    },
+    {
+      "genre": "Animation",
+      "movie_count": 1027
+    },
+    {
+      "genre": "Western",
+      "movie_count": 676
+    },
+    {
+      "genre": "Film-Noir",
+      "movie_count": 330
+    },
+    {
+      "genre": "(no genres listed)",
+      "movie_count": 246
+    },
+    {
+      "genre": "IMAX",
+      "movie_count": 196
+    }
+  ],
+  "release_year": {
+    "with_year": 27255,
+    "without_year": 23
+  },
+  "release_year_distribution": [
+    {
+      "year": 1900,
+      "movie_count": 1
+    },
+    {
+      "year": 1901,
+      "movie_count": 1
+    },
+    {
+      "year": 1902,
+      "movie_count": 1
+    },
+    {
+      "year": 1903,
+      "movie_count": 1
+    },
+    {
+      "year": 1905,
+      "movie_count": 1
+    },
+    {
+      "year": 1909,
+      "movie_count": 3
+    },
+    {
+      "year": 1910,
+      "movie_count": 3
+    },
+    {
+      "year": 1912,
+      "movie_count": 5
+    },
+    {
+      "year": 1913,
+      "movie_count": 5
+    },
+    {
+      "year": 1914,
+      "movie_count": 13
+    },
+    {
+      "year": 1915,
+      "movie_count": 17
+    },
+    {
+      "year": 1916,
+      "movie_count": 17
+    },
+    {
+      "year": 1917,
+      "movie_count": 12
+    },
+    {
+      "year": 1918,
+      "movie_count": 8
+    },
+    {
+      "year": 1919,
+      "movie_count": 17
+    },
+    {
+      "year": 1920,
+      "movie_count": 19
+    },
+    {
+      "year": 1921,
+      "movie_count": 27
+    },
+    {
+      "year": 1922,
+      "movie_count": 25
+    },
+    {
+      "year": 1923,
+      "movie_count": 17
+    },
+    {
+      "year": 1924,
+      "movie_count": 30
+    },
+    {
+      "year": 1925,
+      "movie_count": 32
+    },
+    {
+      "year": 1926,
+      "movie_count": 40
+    },
+    {
+      "year": 1927,
+      "movie_count": 31
+    },
+    {
+      "year": 1928,
+      "movie_count": 48
+    },
+    {
+      "year": 1929,
+      "movie_count": 50
+    },
+    {
+      "year": 1930,
+      "movie_count": 59
+    },
+    {
+      "year": 1931,
+      "movie_count": 69
+    },
+    {
+      "year": 1932,
+      "movie_count": 96
+    },
+    {
+      "year": 1933,
+      "movie_count": 98
+    },
+    {
+      "year": 1934,
+      "movie_count": 101
+    },
+    {
+      "year": 1935,
+      "movie_count": 107
+    },
+    {
+      "year": 1936,
+      "movie_count": 107
+    },
+    {
+      "year": 1937,
+      "movie_count": 104
+    },
+    {
+      "year": 1938,
+      "movie_count": 95
+    },
+    {
+      "year": 1939,
+      "movie_count": 93
+    },
+    {
+      "year": 1940,
+      "movie_count": 117
+    },
+    {
+      "year": 1941,
+      "movie_count": 107
+    },
+    {
+      "year": 1942,
+      "movie_count": 101
+    },
+    {
+      "year": 1943,
+      "movie_count": 117
+    },
+    {
+      "year": 1944,
+      "movie_count": 101
+    },
+    {
+      "year": 1945,
+      "movie_count": 105
+    },
+    {
+      "year": 1946,
+      "movie_count": 92
+    },
+    {
+      "year": 1947,
+      "movie_count": 99
+    },
+    {
+      "year": 1948,
+      "movie_count": 102
+    },
+    {
+      "year": 1949,
+      "movie_count": 126
+    },
+    {
+      "year": 1950,
+      "movie_count": 122
+    },
+    {
+      "year": 1951,
+      "movie_count": 125
+    },
+    {
+      "year": 1952,
+      "movie_count": 131
+    },
+    {
+      "year": 1953,
+      "movie_count": 136
+    },
+    {
+      "year": 1954,
+      "movie_count": 113
+    },
+    {
+      "year": 1955,
+      "movie_count": 146
+    },
+    {
+      "year": 1956,
+      "movie_count": 136
+    },
+    {
+      "year": 1957,
+      "movie_count": 163
+    },
+    {
+      "year": 1958,
+      "movie_count": 146
+    },
+    {
+      "year": 1959,
+      "movie_count": 151
+    },
+    {
+      "year": 1960,
+      "movie_count": 148
+    },
+    {
+      "year": 1961,
+      "movie_count": 123
+    },
+    {
+      "year": 1962,
+      "movie_count": 151
+    },
+    {
+      "year": 1963,
+      "movie_count": 148
+    },
+    {
+      "year": 1964,
+      "movie_count": 173
+    },
+    {
+      "year": 1965,
+      "movie_count": 166
+    },
+    {
+      "year": 1966,
+      "movie_count": 199
+    },
+    {
+      "year": 1967,
+      "movie_count": 173
+    },
+    {
+      "year": 1968,
+      "movie_count": 203
+    },
+    {
+      "year": 1969,
+      "movie_count": 177
+    },
+    {
+      "year": 1970,
+      "movie_count": 204
+    },
+    {
+      "year": 1971,
+      "movie_count": 205
+    },
+    {
+      "year": 1972,
+      "movie_count": 219
+    },
+    {
+      "year": 1973,
+      "movie_count": 211
+    },
+    {
+      "year": 1974,
+      "movie_count": 195
+    },
+    {
+      "year": 1975,
+      "movie_count": 196
+    },
+    {
+      "year": 1976,
+      "movie_count": 199
+    },
+    {
+      "year": 1977,
+      "movie_count": 198
+    },
+    {
+      "year": 1978,
+      "movie_count": 192
+    },
+    {
+      "year": 1979,
+      "movie_count": 201
+    },
+    {
+      "year": 1980,
+      "movie_count": 243
+    },
+    {
+      "year": 1981,
+      "movie_count": 248
+    },
+    {
+      "year": 1982,
+      "movie_count": 238
+    },
+    {
+      "year": 1983,
+      "movie_count": 222
+    },
+    {
+      "year": 1984,
+      "movie_count": 234
+    },
+    {
+      "year": 1985,
+      "movie_count": 254
+    },
+    {
+      "year": 1986,
+      "movie_count": 266
+    },
+    {
+      "year": 1987,
+      "movie_count": 313
+    },
+    {
+      "year": 1988,
+      "movie_count": 325
+    },
+    {
+      "year": 1989,
+      "movie_count": 310
+    },
+    {
+      "year": 1990,
+      "movie_count": 314
+    },
+    {
+      "year": 1991,
+      "movie_count": 312
+    },
+    {
+      "year": 1992,
+      "movie_count": 335
+    },
+    {
+      "year": 1993,
+      "movie_count": 371
+    },
+    {
+      "year": 1994,
+      "movie_count": 432
+    },
+    {
+      "year": 1995,
+      "movie_count": 474
+    },
+    {
+      "year": 1996,
+      "movie_count": 509
+    },
+    {
+      "year": 1997,
+      "movie_count": 528
+    },
+    {
+      "year": 1998,
+      "movie_count": 555
+    },
+    {
+      "year": 1999,
+      "movie_count": 542
+    },
+    {
+      "year": 2000,
+      "movie_count": 613
+    },
+    {
+      "year": 2001,
+      "movie_count": 633
+    },
+    {
+      "year": 2002,
+      "movie_count": 678
+    },
+    {
+      "year": 2003,
+      "movie_count": 655
+    },
+    {
+      "year": 2004,
+      "movie_count": 706
+    },
+    {
+      "year": 2005,
+      "movie_count": 741
+    },
+    {
+      "year": 2006,
+      "movie_count": 855
+    },
+    {
+      "year": 2007,
+      "movie_count": 902
+    },
+    {
+      "year": 2008,
+      "movie_count": 979
+    },
+    {
+      "year": 2009,
+      "movie_count": 1113
+    },
+    {
+      "year": 2010,
+      "movie_count": 962
+    },
+    {
+      "year": 2011,
+      "movie_count": 1016
+    },
+    {
+      "year": 2012,
+      "movie_count": 1022
+    },
+    {
+      "year": 2013,
+      "movie_count": 1011
+    },
+    {
+      "year": 2014,
+      "movie_count": 740
+    },
+    {
+      "year": 2015,
+      "movie_count": 120
+    }
+  ],
+  "cleaning": {
+    "rows_before": 20000263,
+    "rows_after": 20000263,
+    "rows_removed": 0
+  },
+  "activity_filtering": {
+    "min_user_ratings": 5,
+    "min_movie_ratings": 5,
+    "rows_before": 20000263,
+    "rows_after": 19984024,
+    "users_retained": 138493,
+    "movies_retained": 18345
+  },
+  "user_activity": {
+    "count": 138493.0,
+    "mean": 144.2962749019806,
+    "std": 229.23997501361097,
+    "min": 16.0,
+    "25%": 35.0,
+    "50%": 68.0,
+    "75%": 155.0,
+    "max": 8540.0
+  },
+  "movie_activity": {
+    "count": 18345.0,
+    "mean": 1089.344453529572,
+    "std": 3675.7007607024298,
+    "min": 5.0,
+    "25%": 16.0,
+    "50%": 80.0,
+    "75%": 477.0,
+    "max": 67310.0
+  },
+  "user_activity_histogram": [
+    {
+      "bin_start": 1,
+      "count": 0
+    },
+    {
+      "bin_start": 2,
+      "count": 0
+    },
+    {
+      "bin_start": 3,
+      "count": 0
+    },
+    {
+      "bin_start": 5,
+      "count": 0
+    },
+    {
+      "bin_start": 7,
+      "count": 0
+    },
+    {
+      "bin_start": 10,
+      "count": 0
+    },
+    {
+      "bin_start": 14,
+      "count": 17
+    },
+    {
+      "bin_start": 20,
+      "count": 25940
+    },
+    {
+      "bin_start": 30,
+      "count": 19579
+    },
+    {
+      "bin_start": 43,
+      "count": 19927
+    },
+    {
+      "bin_start": 63,
+      "count": 17205
+    },
+    {
+      "bin_start": 92,
+      "count": 16302
+    },
+    {
+      "bin_start": 135,
+      "count": 12163
+    },
+    {
+      "bin_start": 196,
+      "count": 10144
+    },
+    {
+      "bin_start": 287,
+      "count": 7298
+    },
+    {
+      "bin_start": 418,
+      "count": 4730
+    },
+    {
+      "bin_start": 609,
+      "count": 2781
+    },
+    {
+      "bin_start": 888,
+      "count": 1502
+    },
+    {
+      "bin_start": 1295,
+      "count": 605
+    },
+    {
+      "bin_start": 1889,
+      "count": 226
+    },
+    {
+      "bin_start": 2754,
+      "count": 55
+    },
+    {
+      "bin_start": 4016,
+      "count": 17
+    },
+    {
+      "bin_start": 5857,
+      "count": 1
+    },
+    {
+      "bin_start": 8540,
+      "count": 1
+    }
+  ],
+  "movie_popularity_histogram": [
+    {
+      "bin_start": 1,
+      "count": 0
+    },
+    {
+      "bin_start": 2,
+      "count": 0
+    },
+    {
+      "bin_start": 3,
+      "count": 0
+    },
+    {
+      "bin_start": 4,
+      "count": 826
+    },
+    {
+      "bin_start": 6,
+      "count": 2068
+    },
+    {
+      "bin_start": 10,
+      "count": 1644
+    },
+    {
+      "bin_start": 16,
+      "count": 1389
+    },
+    {
+      "bin_start": 26,
+      "count": 1283
+    },
+    {
+      "bin_start": 41,
+      "count": 1359
+    },
+    {
+      "bin_start": 65,
+      "count": 1297
+    },
+    {
+      "bin_start": 103,
+      "count": 1227
+    },
+    {
+      "bin_start": 163,
+      "count": 1182
+    },
+    {
+      "bin_start": 259,
+      "count": 1134
+    },
+    {
+      "bin_start": 412,
+      "count": 998
+    },
+    {
+      "bin_start": 655,
+      "count": 853
+    },
+    {
+      "bin_start": 1041,
+      "count": 777
+    },
+    {
+      "bin_start": 1655,
+      "count": 607
+    },
+    {
+      "bin_start": 2630,
+      "count": 514
+    },
+    {
+      "bin_start": 4179,
+      "count": 430
+    },
+    {
+      "bin_start": 6641,
+      "count": 328
+    },
+    {
+      "bin_start": 10554,
+      "count": 222
+    },
+    {
+      "bin_start": 16771,
+      "count": 124
+    },
+    {
+      "bin_start": 26653,
+      "count": 58
+    },
+    {
+      "bin_start": 42355,
+      "count": 24
+    },
+    {
+      "bin_start": 67310,
+      "count": 1
+    }
+  ],
+  "implicit_feedback": {
+    "positive_rating_threshold": 4.0,
+    "positive_interactions": 9991556,
+    "negative_interactions": 9992468,
+    "positive_rate_pct": 49.998
+  },
+  "ratings_over_time": [
+    {
+      "month": "1995-01",
+      "count": 4
+    },
+    {
+      "month": "1996-01",
+      "count": 42
+    },
+    {
+      "month": "1996-02",
+      "count": 453
+    },
+    {
+      "month": "1996-03",
+      "count": 9314
+    },
+    {
+      "month": "1996-04",
+      "count": 52544
+    },
+    {
+      "month": "1996-05",
+      "count": 187276
+    },
+    {
+      "month": "1996-06",
+      "count": 260033
+    },
+    {
+      "month": "1996-07",
+      "count": 221134
+    },
+    {
+      "month": "1996-08",
+      "count": 214140
+    },
+    {
+      "month": "1996-09",
+      "count": 151709
+    },
+    {
+      "month": "1996-10",
+      "count": 191064
+    },
+    {
+      "month": "1996-11",
+      "count": 184983
+    },
+    {
+      "month": "1996-12",
+      "count": 139917
+    },
+    {
+      "month": "1997-01",
+      "count": 110609
+    },
+    {
+      "month": "1997-02",
+      "count": 68609
+    },
+    {
+      "month": "1997-03",
+      "count": 100689
+    },
+    {
+      "month": "1997-04",
+      "count": 86881
+    },
+    {
+      "month": "1997-05",
+      "count": 96009
+    },
+    {
+      "month": "1997-06",
+      "count": 81781
+    },
+    {
+      "month": "1997-07",
+      "count": 57406
+    },
+    {
+      "month": "1997-09",
+      "count": 19008
+    },
+    {
+      "month": "1997-10",
+      "count": 21317
+    },
+    {
+      "month": "1997-11",
+      "count": 38466
+    },
+    {
+      "month": "1997-12",
+      "count": 20207
+    },
+    {
+      "month": "1998-01",
+      "count": 23860
+    },
+    {
+      "month": "1998-02",
+      "count": 17536
+    },
+    {
+      "month": "1998-03",
+      "count": 19756
+    },
+    {
+      "month": "1998-04",
+      "count": 18939
+    },
+    {
+      "month": "1998-05",
+      "count": 10197
+    },
+    {
+      "month": "1998-06",
+      "count": 14812
+    },
+    {
+      "month": "1998-07",
+      "count": 81868
+    },
+    {
+      "month": "1998-08",
+      "count": 39192
+    },
+    {
+      "month": "1998-09",
+      "count": 19201
+    },
+    {
+      "month": "1998-10",
+      "count": 13997
+    },
+    {
+      "month": "1998-11",
+      "count": 15913
+    },
+    {
+      "month": "1998-12",
+      "count": 32799
+    },
+    {
+      "month": "1999-01",
+      "count": 25968
+    },
+    {
+      "month": "1999-02",
+      "count": 17147
+    },
+    {
+      "month": "1999-03",
+      "count": 8698
+    },
+    {
+      "month": "1999-04",
+      "count": 14828
+    },
+    {
+      "month": "1999-05",
+      "count": 13420
+    },
+    {
+      "month": "1999-06",
+      "count": 11869
+    },
+    {
+      "month": "1999-07",
+      "count": 10488
+    },
+    {
+      "month": "1999-08",
+      "count": 11559
+    },
+    {
+      "month": "1999-09",
+      "count": 31814
+    },
+    {
+      "month": "1999-10",
+      "count": 357598
+    },
+    {
+      "month": "1999-11",
+      "count": 240364
+    },
+    {
+      "month": "1999-12",
+      "count": 454631
+    },
+    {
+      "month": "2000-01",
+      "count": 173922
+    },
+    {
+      "month": "2000-02",
+      "count": 124685
+    },
+    {
+      "month": "2000-03",
+      "count": 151126
+    },
+    {
+      "month": "2000-04",
+      "count": 176386
+    },
+    {
+      "month": "2000-05",
+      "count": 112138
+    },
+    {
+      "month": "2000-06",
+      "count": 93653
+    },
+    {
+      "month": "2000-07",
+      "count": 152267
+    },
+    {
+      "month": "2000-08",
+      "count": 248455
+    },
+    {
+      "month": "2000-09",
+      "count": 80047
+    },
+    {
+      "month": "2000-10",
+      "count": 65503
+    },
+    {
+      "month": "2000-11",
+      "count": 407367
+    },
+    {
+      "month": "2000-12",
+      "count": 168105
+    },
+    {
+      "month": "2001-01",
+      "count": 134924
+    },
+    {
+      "month": "2001-02",
+      "count": 83439
+    },
+    {
+      "month": "2001-03",
+      "count": 73051
+    },
+    {
+      "month": "2001-04",
+      "count": 63206
+    },
+    {
+      "month": "2001-05",
+      "count": 53563
+    },
+    {
+      "month": "2001-06",
+      "count": 164698
+    },
+    {
+      "month": "2001-07",
+      "count": 153710
+    },
+    {
+      "month": "2001-08",
+      "count": 110417
+    },
+    {
+      "month": "2001-09",
+      "count": 94210
+    },
+    {
+      "month": "2001-10",
+      "count": 74447
+    },
+    {
+      "month": "2001-11",
+      "count": 90343
+    },
+    {
+      "month": "2001-12",
+      "count": 90113
+    },
+    {
+      "month": "2002-01",
+      "count": 99814
+    },
+    {
+      "month": "2002-02",
+      "count": 78382
+    },
+    {
+      "month": "2002-03",
+      "count": 65155
+    },
+    {
+      "month": "2002-04",
+      "count": 91036
+    },
+    {
+      "month": "2002-05",
+      "count": 65596
+    },
+    {
+      "month": "2002-06",
+      "count": 59240
+    },
+    {
+      "month": "2002-07",
+      "count": 64233
+    },
+    {
+      "month": "2002-08",
+      "count": 74169
+    },
+    {
+      "month": "2002-09",
+      "count": 59239
+    },
+    {
+      "month": "2002-10",
+      "count": 60023
+    },
+    {
+      "month": "2002-11",
+      "count": 70891
+    },
+    {
+      "month": "2002-12",
+      "count": 81934
+    },
+    {
+      "month": "2003-01",
+      "count": 114233
+    },
+    {
+      "month": "2003-02",
+      "count": 90391
+    },
+    {
+      "month": "2003-03",
+      "count": 97310
+    },
+    {
+      "month": "2003-04",
+      "count": 70321
+    },
+    {
+      "month": "2003-05",
+      "count": 89463
+    },
+    {
+      "month": "2003-06",
+      "count": 89973
+    },
+    {
+      "month": "2003-07",
+      "count": 97713
+    },
+    {
+      "month": "2003-08",
+      "count": 79095
+    },
+    {
+      "month": "2003-09",
+      "count": 76693
+    },
+    {
+      "month": "2003-10",
+      "count": 75643
+    },
+    {
+      "month": "2003-11",
+      "count": 78888
+    },
+    {
+      "month": "2003-12",
+      "count": 76135
+    },
+    {
+      "month": "2004-01",
+      "count": 96406
+    },
+    {
+      "month": "2004-02",
+      "count": 130465
+    },
+    {
+      "month": "2004-03",
+      "count": 113858
+    },
+    {
+      "month": "2004-04",
+      "count": 82112
+    },
+    {
+      "month": "2004-05",
+      "count": 98500
+    },
+    {
+      "month": "2004-06",
+      "count": 88141
+    },
+    {
+      "month": "2004-07",
+      "count": 93650
+    },
+    {
+      "month": "2004-08",
+      "count": 110073
+    },
+    {
+      "month": "2004-09",
+      "count": 97698
+    },
+    {
+      "month": "2004-10",
+      "count": 86596
+    },
+    {
+      "month": "2004-11",
+      "count": 90862
+    },
+    {
+      "month": "2004-12",
+      "count": 81657
+    },
+    {
+      "month": "2005-01",
+      "count": 140211
+    },
+    {
+      "month": "2005-02",
+      "count": 142836
+    },
+    {
+      "month": "2005-03",
+      "count": 347573
+    },
+    {
+      "month": "2005-04",
+      "count": 218094
+    },
+    {
+      "month": "2005-05",
+      "count": 161768
+    },
+    {
+      "month": "2005-06",
+      "count": 147272
+    },
+    {
+      "month": "2005-07",
+      "count": 125418
+    },
+    {
+      "month": "2005-08",
+      "count": 100345
+    },
+    {
+      "month": "2005-09",
+      "count": 106979
+    },
+    {
+      "month": "2005-10",
+      "count": 101344
+    },
+    {
+      "month": "2005-11",
+      "count": 111424
+    },
+    {
+      "month": "2005-12",
+      "count": 99875
+    },
+    {
+      "month": "2006-01",
+      "count": 127066
+    },
+    {
+      "month": "2006-02",
+      "count": 97743
+    },
+    {
+      "month": "2006-03",
+      "count": 115057
+    },
+    {
+      "month": "2006-04",
+      "count": 104382
+    },
+    {
+      "month": "2006-05",
+      "count": 85050
+    },
+    {
+      "month": "2006-06",
+      "count": 87310
+    },
+    {
+      "month": "2006-07",
+      "count": 109154
+    },
+    {
+      "month": "2006-08",
+      "count": 81820
+    },
+    {
+      "month": "2006-09",
+      "count": 76659
+    },
+    {
+      "month": "2006-10",
+      "count": 92585
+    },
+    {
+      "month": "2006-11",
+      "count": 81528
+    },
+    {
+      "month": "2006-12",
+      "count": 113463
+    },
+    {
+      "month": "2007-01",
+      "count": 119033
+    },
+    {
+      "month": "2007-02",
+      "count": 105736
+    },
+    {
+      "month": "2007-03",
+      "count": 99147
+    },
+    {
+      "month": "2007-04",
+      "count": 81637
+    },
+    {
+      "month": "2007-05",
+      "count": 85194
+    },
+    {
+      "month": "2007-06",
+      "count": 95090
+    },
+    {
+      "month": "2007-07",
+      "count": 94777
+    },
+    {
+      "month": "2007-08",
+      "count": 60267
+    },
+    {
+      "month": "2007-09",
+      "count": 61338
+    },
+    {
+      "month": "2007-10",
+      "count": 80645
+    },
+    {
+      "month": "2007-11",
+      "count": 82620
+    },
+    {
+      "month": "2007-12",
+      "count": 87918
+    },
+    {
+      "month": "2008-01",
+      "count": 107273
+    },
+    {
+      "month": "2008-02",
+      "count": 88451
+    },
+    {
+      "month": "2008-03",
+      "count": 83078
+    },
+    {
+      "month": "2008-04",
+      "count": 71960
+    },
+    {
+      "month": "2008-05",
+      "count": 67459
+    },
+    {
+      "month": "2008-06",
+      "count": 78600
+    },
+    {
+      "month": "2008-07",
+      "count": 98080
+    },
+    {
+      "month": "2008-08",
+      "count": 89497
+    },
+    {
+      "month": "2008-09",
+      "count": 76581
+    },
+    {
+      "month": "2008-10",
+      "count": 165174
+    },
+    {
+      "month": "2008-11",
+      "count": 137477
+    },
+    {
+      "month": "2008-12",
+      "count": 95047
+    },
+    {
+      "month": "2009-01",
+      "count": 115365
+    },
+    {
+      "month": "2009-02",
+      "count": 81917
+    },
+    {
+      "month": "2009-03",
+      "count": 98027
+    },
+    {
+      "month": "2009-04",
+      "count": 78858
+    },
+    {
+      "month": "2009-05",
+      "count": 75947
+    },
+    {
+      "month": "2009-06",
+      "count": 71439
+    },
+    {
+      "month": "2009-07",
+      "count": 71127
+    },
+    {
+      "month": "2009-08",
+      "count": 71920
+    },
+    {
+      "month": "2009-09",
+      "count": 67926
+    },
+    {
+      "month": "2009-10",
+      "count": 67374
+    },
+    {
+      "month": "2009-11",
+      "count": 61826
+    },
+    {
+      "month": "2009-12",
+      "count": 67856
+    },
+    {
+      "month": "2010-01",
+      "count": 84898
+    },
+    {
+      "month": "2010-02",
+      "count": 64747
+    },
+    {
+      "month": "2010-03",
+      "count": 70479
+    },
+    {
+      "month": "2010-04",
+      "count": 64188
+    },
+    {
+      "month": "2010-05",
+      "count": 63213
+    },
+    {
+      "month": "2010-06",
+      "count": 67522
+    },
+    {
+      "month": "2010-07",
+      "count": 74027
+    },
+    {
+      "month": "2010-08",
+      "count": 83980
+    },
+    {
+      "month": "2010-09",
+      "count": 96340
+    },
+    {
+      "month": "2010-10",
+      "count": 87297
+    },
+    {
+      "month": "2010-11",
+      "count": 76035
+    },
+    {
+      "month": "2010-12",
+      "count": 69904
+    },
+    {
+      "month": "2011-01",
+      "count": 82267
+    },
+    {
+      "month": "2011-02",
+      "count": 66101
+    },
+    {
+      "month": "2011-03",
+      "count": 77031
+    },
+    {
+      "month": "2011-04",
+      "count": 76959
+    },
+    {
+      "month": "2011-05",
+      "count": 70598
+    },
+    {
+      "month": "2011-06",
+      "count": 61644
+    },
+    {
+      "month": "2011-07",
+      "count": 61097
+    },
+    {
+      "month": "2011-08",
+      "count": 58803
+    },
+    {
+      "month": "2011-09",
+      "count": 51683
+    },
+    {
+      "month": "2011-10",
+      "count": 52927
+    },
+    {
+      "month": "2011-11",
+      "count": 53497
+    },
+    {
+      "month": "2011-12",
+      "count": 51763
+    },
+    {
+      "month": "2012-01",
+      "count": 52856
+    },
+    {
+      "month": "2012-02",
+      "count": 63691
+    },
+    {
+      "month": "2012-03",
+      "count": 61681
+    },
+    {
+      "month": "2012-04",
+      "count": 61731
+    },
+    {
+      "month": "2012-05",
+      "count": 89247
+    },
+    {
+      "month": "2012-06",
+      "count": 55386
+    },
+    {
+      "month": "2012-07",
+      "count": 60220
+    },
+    {
+      "month": "2012-08",
+      "count": 51462
+    },
+    {
+      "month": "2012-09",
+      "count": 52160
+    },
+    {
+      "month": "2012-10",
+      "count": 56758
+    },
+    {
+      "month": "2012-11",
+      "count": 60360
+    },
+    {
+      "month": "2012-12",
+      "count": 63788
+    },
+    {
+      "month": "2013-01",
+      "count": 64032
+    },
+    {
+      "month": "2013-02",
+      "count": 52361
+    },
+    {
+      "month": "2013-03",
+      "count": 50513
+    },
+    {
+      "month": "2013-04",
+      "count": 55644
+    },
+    {
+      "month": "2013-05",
+      "count": 51464
+    },
+    {
+      "month": "2013-06",
+      "count": 47333
+    },
+    {
+      "month": "2013-07",
+      "count": 48120
+    },
+    {
+      "month": "2013-08",
+      "count": 43031
+    },
+    {
+      "month": "2013-09",
+      "count": 64206
+    },
+    {
+      "month": "2013-10",
+      "count": 37023
+    },
+    {
+      "month": "2013-11",
+      "count": 39464
+    },
+    {
+      "month": "2013-12",
+      "count": 43152
+    },
+    {
+      "month": "2014-01",
+      "count": 46464
+    },
+    {
+      "month": "2014-02",
+      "count": 42702
+    },
+    {
+      "month": "2014-03",
+      "count": 44217
+    },
+    {
+      "month": "2014-04",
+      "count": 39052
+    },
+    {
+      "month": "2014-05",
+      "count": 40136
+    },
+    {
+      "month": "2014-06",
+      "count": 37905
+    },
+    {
+      "month": "2014-07",
+      "count": 40948
+    },
+    {
+      "month": "2014-08",
+      "count": 38359
+    },
+    {
+      "month": "2014-09",
+      "count": 32614
+    },
+    {
+      "month": "2014-10",
+      "count": 38658
+    },
+    {
+      "month": "2014-11",
+      "count": 78605
+    },
+    {
+      "month": "2014-12",
+      "count": 79022
+    },
+    {
+      "month": "2015-01",
+      "count": 106409
+    },
+    {
+      "month": "2015-02",
+      "count": 87534
+    },
+    {
+      "month": "2015-03",
+      "count": 86687
+    }
+  ],
+  "split": {
+    "protocol": "chronological_leave_one_out",
+    "train_rows": 19707038,
+    "validation_rows": 138493,
+    "test_rows": 138493,
+    "users_in_train": 138493,
+    "users_in_validation": 138493,
+    "users_in_test": 138493,
+    "test_positive_users": 80331,
+    "validation_positive_users": 78691
+  },
+  "top_movies": [
+    {
+      "movie_idx": 293,
+      "title": "Pulp Fiction (1994)",
+      "train_rating_count": 66536,
+      "train_avg_rating": 4.1747
+    },
+    {
+      "movie_idx": 352,
+      "title": "Forrest Gump (1994)",
+      "train_rating_count": 65226,
+      "train_avg_rating": 4.0274
+    },
+    {
+      "movie_idx": 315,
+      "title": "Shawshank Redemption, The (1994)",
+      "train_rating_count": 62382,
+      "train_avg_rating": 4.4467
+    },
+    {
+      "movie_idx": 587,
+      "title": "Silence of the Lambs, The (1991)",
+      "train_rating_count": 62361,
+      "train_avg_rating": 4.1772
+    },
+    {
+      "movie_idx": 476,
+      "title": "Jurassic Park (1993)",
+      "train_rating_count": 58836,
+      "train_avg_rating": 3.6631
+    },
+    {
+      "movie_idx": 257,
+      "title": "Star Wars: Episode IV - A New Hope (1977)",
+      "train_rating_count": 53895,
+      "train_avg_rating": 4.1915
+    },
+    {
+      "movie_idx": 108,
+      "title": "Braveheart (1995)",
+      "train_rating_count": 53183,
+      "train_avg_rating": 4.0426
+    },
+    {
+      "movie_idx": 583,
+      "title": "Terminator 2: Judgment Day (1991)",
+      "train_rating_count": 51304,
+      "train_avg_rating": 3.9308
+    },
+    {
+      "movie_idx": 2486,
+      "title": "Matrix, The (1999)",
+      "train_rating_count": 50506,
+      "train_avg_rating": 4.1868
+    },
+    {
+      "movie_idx": 453,
+      "title": "Fugitive, The (1993)",
+      "train_rating_count": 49059,
+      "train_avg_rating": 3.9847
+    },
+    {
+      "movie_idx": 0,
+      "title": "Toy Story (1995)",
+      "train_rating_count": 49051,
+      "train_avg_rating": 3.9203
+    },
+    {
+      "movie_idx": 523,
+      "title": "Schindler's List (1993)",
+      "train_rating_count": 48986,
+      "train_avg_rating": 4.309
+    },
+    {
+      "movie_idx": 148,
+      "title": "Apollo 13 (1995)",
+      "train_rating_count": 47440,
+      "train_avg_rating": 3.8681
+    },
+    {
+      "movie_idx": 49,
+      "title": "Usual Suspects, The (1995)",
+      "train_rating_count": 46181,
+      "train_avg_rating": 4.3341
+    },
+    {
+      "movie_idx": 1184,
+      "title": "Star Wars: Episode VI - Return of the Jedi (1983)",
+      "train_rating_count": 46160,
+      "train_avg_rating": 4.0041
+    },
+    {
+      "movie_idx": 767,
+      "title": "Independence Day (a.k.a. ID4) (1996)",
+      "train_rating_count": 45966,
+      "train_avg_rating": 3.3622
+    },
+    {
+      "movie_idx": 586,
+      "title": "Batman (1989)",
+      "train_rating_count": 45678,
+      "train_avg_rating": 3.4009
+    },
+    {
+      "movie_idx": 1171,
+      "title": "Star Wars: Episode V - The Empire Strikes Back (1980)",
+      "train_rating_count": 44769,
+      "train_avg_rating": 4.1888
+    },
+    {
+      "movie_idx": 31,
+      "title": "Twelve Monkeys (a.k.a. 12 Monkeys) (1995)",
+      "train_rating_count": 44510,
+      "train_avg_rating": 3.8974
+    },
+    {
+      "movie_idx": 2772,
+      "title": "American Beauty (1999)",
+      "train_rating_count": 44206,
+      "train_avg_rating": 4.1566
+    }
+  ],
+  "sparsity": {
+    "num_users": 138493,
+    "num_movies": 18345,
+    "observed_interactions": 19984024,
+    "dense_cells": 2540654085,
+    "density_pct": 0.78657,
+    "sparsity_pct": 99.21343,
+    "global_mean_rating_train": 3.5239
+  },
+  "generated_at": "2026-11-18T05:04:19",
+  "dataset": "MovieLens 20M"
+}

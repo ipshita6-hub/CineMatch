@@ -1,0 +1,468 @@
+{
+  "generated_at": "2026-11-18T05:36:16",
+  "dataset": "MovieLens 20M",
+  "dataset_note": "The PRD specifies MovieLens 25M; all experiments use MovieLens 20M, the dataset actually supplied.",
+  "protocol": {
+    "split": "chronological leave-one-out",
+    "relevance": "held-out interaction counts as relevant only when rating >= 4.0",
+    "candidates_per_user": 100,
+    "negatives_per_user": 99,
+    "k": 10,
+    "identical_candidate_sets": true,
+    "tie_breaking": "pessimistic for the positive item",
+    "precision_recall_note": "Exactly one relevant item exists per user, so Precision@10 = HR@10/10 and Recall@10 = HR@10 by construction."
+  },
+  "dataset_shape": {
+    "num_users": 138493,
+    "num_movies": 18345,
+    "interactions": 19984024,
+    "train_rows": 19707038,
+    "validation_rows": 138493,
+    "test_rows": 138493
+  },
+  "models": {
+    "Popularity": {
+      "HR@10": 0.7915997560095106,
+      "NDCG@10": 0.5159173481294592,
+      "Precision@10": 0.07915997560095106,
+      "Recall@10": 0.7915997560095106,
+      "F1@10": 0.1439272283653656,
+      "MRR": 0.44146924870478754,
+      "evaluated_users": 80331,
+      "ROC_AUC": 0.934934476216163,
+      "personalised": false,
+      "description": "Ranks by training-set rating count (non-personalised)."
+    },
+    "MatrixFactorization": {
+      "HR@10": 0.865070769690406,
+      "NDCG@10": 0.5974827206270897,
+      "Precision@10": 0.0865070769690406,
+      "Recall@10": 0.865070769690406,
+      "F1@10": 0.15728559448916474,
+      "MRR": 0.5206824952923009,
+      "evaluated_users": 80331,
+      "ROC_AUC": 0.9543513106486836,
+      "personalised": true,
+      "description": "Implicit MF: dot product + biases.",
+      "trained_epoch": 6
+    },
+    "NeuMF": {
+      "HR@10": 0.9086529484258878,
+      "NDCG@10": 0.6596435381586141,
+      "Precision@10": 0.09086529484258879,
+      "Recall@10": 0.9086529484258878,
+      "F1@10": 0.16520962698652508,
+      "MRR": 0.5854381593791557,
+      "evaluated_users": 80331,
+      "ROC_AUC": 0.9681780451996063,
+      "personalised": true,
+      "description": "NeuMF: GMF + MLP fusion (He et al. 2017).",
+      "trained_epoch": 9
+    }
+  },
+  "rating_prediction": {
+    "model": "RatingPredictor (NeuMF trunk + calibrated regression head)",
+    "RMSE": 0.9063925143215031,
+    "MAE": 0.6950740698019242,
+    "evaluated_ratings": 138493,
+    "rating_scale": [
+      0.5,
+      5.0
+    ],
+    "prediction_min": 0.549,
+    "prediction_max": 4.9711,
+    "trained_epoch": 3,
+    "baselines": {
+      "global_mean": {
+        "RMSE": 1.0825335950993018,
+        "MAE": 0.8878284225655438,
+        "evaluated_ratings": 138493
+      },
+      "item_mean": {
+        "RMSE": 0.9989985372576441,
+        "MAE": 0.7859506005917819,
+        "evaluated_ratings": 138493
+      }
+    }
+  },
+  "recommendation_analytics": {
+    "NeuMF": {
+      "users_sampled": 2000,
+      "top_k": 10,
+      "catalog_coverage_pct": 3.5214,
+      "unique_movies_recommended": 646,
+      "head_share_pct": 99.94,
+      "long_tail_share_pct": 0.06,
+      "genre_distribution": [
+        {
+          "genre": "Drama",
+          "count": 9135
+        },
+        {
+          "genre": "Thriller",
+          "count": 6729
+        },
+        {
+          "genre": "Adventure",
+          "count": 6334
+        },
+        {
+          "genre": "Action",
+          "count": 6203
+        },
+        {
+          "genre": "Comedy",
+          "count": 6007
+        },
+        {
+          "genre": "Crime",
+          "count": 5564
+        },
+        {
+          "genre": "Sci-Fi",
+          "count": 4186
+        },
+        {
+          "genre": "Romance",
+          "count": 3371
+        },
+        {
+          "genre": "Fantasy",
+          "count": 2715
+        },
+        {
+          "genre": "War",
+          "count": 2216
+        },
+        {
+          "genre": "Mystery",
+          "count": 1873
+        },
+        {
+          "genre": "Children",
+          "count": 1803
+        },
+        {
+          "genre": "Animation",
+          "count": 1543
+        },
+        {
+          "genre": "Horror",
+          "count": 1245
+        },
+        {
+          "genre": "IMAX",
+          "count": 782
+        },
+        {
+          "genre": "Musical",
+          "count": 655
+        },
+        {
+          "genre": "Western",
+          "count": 139
+        },
+        {
+          "genre": "Film-Noir",
+          "count": 126
+        },
+        {
+          "genre": "Documentary",
+          "count": 9
+        }
+      ],
+      "score_distribution": [
+        {
+          "bin_start": 1.967,
+          "bin_end": 2.2129,
+          "count": 6
+        },
+        {
+          "bin_start": 2.2129,
+          "bin_end": 2.4587,
+          "count": 2
+        },
+        {
+          "bin_start": 2.4587,
+          "bin_end": 2.7046,
+          "count": 29
+        },
+        {
+          "bin_start": 2.7046,
+          "bin_end": 2.9505,
+          "count": 158
+        },
+        {
+          "bin_start": 2.9505,
+          "bin_end": 3.1963,
+          "count": 632
+        },
+        {
+          "bin_start": 3.1963,
+          "bin_end": 3.4422,
+          "count": 1450
+        },
+        {
+          "bin_start": 3.4422,
+          "bin_end": 3.6881,
+          "count": 2436
+        },
+        {
+          "bin_start": 3.6881,
+          "bin_end": 3.9339,
+          "count": 3252
+        },
+        {
+          "bin_start": 3.9339,
+          "bin_end": 4.1798,
+          "count": 3505
+        },
+        {
+          "bin_start": 4.1798,
+          "bin_end": 4.4257,
+          "count": 3026
+        },
+        {
+          "bin_start": 4.4257,
+          "bin_end": 4.6715,
+          "count": 2220
+        },
+        {
+          "bin_start": 4.6715,
+          "bin_end": 4.9174,
+          "count": 1465
+        },
+        {
+          "bin_start": 4.9174,
+          "bin_end": 5.1632,
+          "count": 912
+        },
+        {
+          "bin_start": 5.1632,
+          "bin_end": 5.4091,
+          "count": 495
+        },
+        {
+          "bin_start": 5.4091,
+          "bin_end": 5.655,
+          "count": 241
+        },
+        {
+          "bin_start": 5.655,
+          "bin_end": 5.9008,
+          "count": 105
+        },
+        {
+          "bin_start": 5.9008,
+          "bin_end": 6.1467,
+          "count": 41
+        },
+        {
+          "bin_start": 6.1467,
+          "bin_end": 6.3926,
+          "count": 13
+        },
+        {
+          "bin_start": 6.3926,
+          "bin_end": 6.6384,
+          "count": 9
+        },
+        {
+          "bin_start": 6.6384,
+          "bin_end": 6.8843,
+          "count": 3
+        }
+      ]
+    },
+    "Popularity": {
+      "users_sampled": 2000,
+      "top_k": 10,
+      "catalog_coverage_pct": 0.7141,
+      "unique_movies_recommended": 131,
+      "head_share_pct": 100.0,
+      "long_tail_share_pct": 0.0,
+      "genre_distribution": [
+        {
+          "genre": "Action",
+          "count": 8951
+        },
+        {
+          "genre": "Thriller",
+          "count": 8586
+        },
+        {
+          "genre": "Drama",
+          "count": 7354
+        },
+        {
+          "genre": "Sci-Fi",
+          "count": 6864
+        },
+        {
+          "genre": "Adventure",
+          "count": 6721
+        },
+        {
+          "genre": "Crime",
+          "count": 4792
+        },
+        {
+          "genre": "Comedy",
+          "count": 4431
+        },
+        {
+          "genre": "War",
+          "count": 3277
+        },
+        {
+          "genre": "Romance",
+          "count": 1550
+        },
+        {
+          "genre": "Children",
+          "count": 1419
+        },
+        {
+          "genre": "Animation",
+          "count": 1354
+        },
+        {
+          "genre": "Fantasy",
+          "count": 1342
+        },
+        {
+          "genre": "Horror",
+          "count": 1214
+        },
+        {
+          "genre": "Mystery",
+          "count": 1115
+        },
+        {
+          "genre": "IMAX",
+          "count": 845
+        },
+        {
+          "genre": "Musical",
+          "count": 308
+        },
+        {
+          "genre": "Western",
+          "count": 219
+        },
+        {
+          "genre": "Film-Noir",
+          "count": 4
+        }
+      ],
+      "score_distribution": [
+        {
+          "bin_start": 13928.0,
+          "bin_end": 16558.4,
+          "count": 7
+        },
+        {
+          "bin_start": 16558.4,
+          "bin_end": 19188.8,
+          "count": 9
+        },
+        {
+          "bin_start": 19188.8,
+          "bin_end": 21819.2,
+          "count": 8
+        },
+        {
+          "bin_start": 21819.2,
+          "bin_end": 24449.6,
+          "count": 30
+        },
+        {
+          "bin_start": 24449.6,
+          "bin_end": 27080.0,
+          "count": 38
+        },
+        {
+          "bin_start": 27080.0,
+          "bin_end": 29710.4,
+          "count": 92
+        },
+        {
+          "bin_start": 29710.4,
+          "bin_end": 32340.8,
+          "count": 179
+        },
+        {
+          "bin_start": 32340.8,
+          "bin_end": 34971.2,
+          "count": 371
+        },
+        {
+          "bin_start": 34971.2,
+          "bin_end": 37601.6,
+          "count": 171
+        },
+        {
+          "bin_start": 37601.6,
+          "bin_end": 40232.0,
+          "count": 314
+        },
+        {
+          "bin_start": 40232.0,
+          "bin_end": 42862.4,
+          "count": 996
+        },
+        {
+          "bin_start": 42862.4,
+          "bin_end": 45492.8,
+          "count": 1124
+        },
+        {
+          "bin_start": 45492.8,
+          "bin_end": 48123.2,
+          "count": 2689
+        },
+        {
+          "bin_start": 48123.2,
+          "bin_end": 50753.6,
+          "count": 4513
+        },
+        {
+          "bin_start": 50753.6,
+          "bin_end": 53384.0,
+          "count": 2605
+        },
+        {
+          "bin_start": 53384.0,
+          "bin_end": 56014.4,
+          "count": 1221
+        },
+        {
+          "bin_start": 56014.4,
+          "bin_end": 58644.8,
+          "count": 0
+        },
+        {
+          "bin_start": 58644.8,
+          "bin_end": 61275.2,
+          "count": 1195
+        },
+        {
+          "bin_start": 61275.2,
+          "bin_end": 63905.6,
+          "count": 2273
+        },
+        {
+          "bin_start": 63905.6,
+          "bin_end": 66536.0,
+          "count": 2165
+        }
+      ]
+    }
+  },
+  "improvements": {
+    "NeuMF_vs_Popularity_HR@10_pct": 14.79,
+    "NeuMF_vs_Popularity_NDCG@10_pct": 27.86,
+    "NeuMF_vs_MatrixFactorization_HR@10_pct": 5.04,
+    "NeuMF_vs_MatrixFactorization_NDCG@10_pct": 10.4
+  }
+}
