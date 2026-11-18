@@ -359,20 +359,27 @@ response cache cannot flatter the result), against the local API with a warm met
 
 | Scenario | p50 | p95 |
 |---|---|---|
-| **`GET /recommendations/{user_id}` (NeuMF, k=10)** | **2.73 ms** | **3.17 ms** |
-| `GET /recommendations/{user_id}` (hybrid, k=10) | 3.03 ms | 4.00 ms |
-| `GET /recommendations/{user_id}` (popularity fallback) | 1.59 ms | 1.87 ms |
-| `POST /predict` | 1.10 ms | 1.19 ms |
-| `GET /movies` (title search) | 14.47 ms | 15.49 ms |
-| `GET /metrics` | 0.52 ms | 0.81 ms |
+| **`GET /recommendations/{user_id}` (NeuMF, k=10)** | **2.73 ms** | **3.07 ms** |
+| `GET /recommendations/{user_id}` (NeuMF, k=50) | 3.60 ms | 4.13 ms |
+| `GET /recommendations/{user_id}` (hybrid, k=10) | 2.89 ms | 3.24 ms |
+| `GET /recommendations/{user_id}` (popularity fallback) | 1.58 ms | 1.76 ms |
+| `POST /predict` | 1.11 ms | 1.20 ms |
+| `GET /movies` (title search) | 14.40 ms | 15.87 ms |
+| `GET /metrics` | 0.51 ms | 0.72 ms |
+
+Every row is an **uncached** request: the benchmark draws a different random user per run, so the
+response cache never serves it. (A cache *hit* returns in ~0.01 ms, which is why the benchmark
+deliberately avoids a fixed seed — replaying one user sequence would report cache-hit times as if
+they were model latency.)
 
 Scoring the **entire 18,345-movie catalog** for one user takes 0.88 ms (NeuMF) on CPU, so no
 candidate pre-filtering is needed at this scale.
 
-**Measured on an Apple M5 Pro development machine, not a production deployment.** The one
-cold-path caveat: a request whose result contains movies with no cached TMDB metadata pays the
-external API round-trip (observed p95 ≈ 280 ms for an uncached k=50 list). Run
-`python scripts/prewarm_tmdb.py 9000` to remove it; the app is fully usable without any of it.
+**Measured on an Apple M5 Pro development machine, not a production deployment.** One cold-path
+caveat remains: a result containing movies with no cached TMDB metadata pays the external API
+round-trip. Before the catalog head was prewarmed, an uncached k=50 list showed a p95 of ~280 ms;
+after `python scripts/prewarm_tmdb.py 9000` it is 4.13 ms. Lookups are concurrent and capped at 24
+per request, and the application is fully usable with no TMDB key at all.
 
 Optimisations applied: weights loaded once at startup, batched tensor scoring, a TTL response cache
 invalidated on rating changes, indexed Postgres queries, concurrent and budget-capped TMDB lookups.
@@ -504,10 +511,15 @@ the deployed backend and add that origin to the backend's `CORS_ORIGINS`.
    this implementation trains from scratch, which likely leaves some headroom.
 6. **Fold-in is not retraining** — a new account's item embeddings stay frozen. Periodic full
    retraining would be needed in production.
-7. **Docker omitted** (§21).
-8. **Latency measured locally**, single process, warm cache (§17).
-9. **No Precision/Recall beyond k=10** and no diversity-aware objective.
-10. **TMDB coverage** — 27,026 of 27,278 movies carry a TMDB id; the rest always use placeholders.
+7. **Fold-in rating predictions saturate on uniform input** — an account whose onboarding ratings
+   are all 4.5–5.0 gives the regression head no spread to fit, so it predicts at or near 5.0 for
+   most titles. The value stays inside the rating scale and the ranking path is unaffected, but
+   the predicted rating only becomes informative once the account has rated across the range. The
+   RMSE in §12 is measured on dataset users with full histories, not on fold-in accounts.
+8. **Docker omitted** (§21).
+9. **Latency measured locally**, single process, warm metadata cache (§17).
+10. **No Precision/Recall beyond k=10** and no diversity-aware objective.
+11. **TMDB coverage** — 27,026 of 27,278 movies carry a TMDB id; the rest always use placeholders.
 
 ## 23. Reproducing everything from scratch
 

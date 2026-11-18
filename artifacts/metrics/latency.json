@@ -1,86 +1,87 @@
 {
-  "generated_at": "2026-11-18T05:38:15",
+  "generated_at": "2026-11-18T05:42:13",
   "base_url": "http://127.0.0.1:8011",
   "requests_per_scenario": 200,
   "target_ms": 200,
   "measured_on": "local development machine (Apple silicon, CPU inference)",
-  "note": "Measured against a locally running API with a warm TMDB metadata cache. A cold TMDB lookup adds network time; run scripts/prewarm_tmdb.py first. These figures describe this machine, not a production deployment.",
+  "note": "Measured against a locally running API with a warm TMDB metadata cache. Users are drawn at random per run, so each request is a cache miss that actually scores the catalog. A cold TMDB lookup adds network time; run scripts/prewarm_tmdb.py first. These figures describe this machine, not a production deployment.",
+  "cache_policy": "uncached requests (random users per run)",
   "scenarios": {
     "GET /recommendations/{user_id} (neumf, k=10)": {
       "count": 200,
       "p50_ms": 2.73,
-      "p95_ms": 3.17,
-      "p99_ms": 3.4,
-      "mean_ms": 2.92,
-      "min_ms": 2.5,
-      "max_ms": 33.04
+      "p95_ms": 3.07,
+      "p99_ms": 3.26,
+      "mean_ms": 2.76,
+      "min_ms": 2.54,
+      "max_ms": 3.47
     },
     "GET /recommendations/{user_id} (neumf, k=50)": {
       "count": 200,
-      "p50_ms": 4.49,
-      "p95_ms": 280.57,
-      "p99_ms": 341.71,
-      "mean_ms": 25.89,
-      "min_ms": 3.33,
-      "max_ms": 693.78
+      "p50_ms": 3.6,
+      "p95_ms": 4.13,
+      "p99_ms": 4.42,
+      "mean_ms": 3.64,
+      "min_ms": 0.95,
+      "max_ms": 4.51
     },
     "GET /recommendations/{user_id} (hybrid, k=10)": {
       "count": 200,
-      "p50_ms": 3.03,
-      "p95_ms": 4.0,
-      "p99_ms": 6.55,
-      "mean_ms": 4.5,
-      "min_ms": 2.71,
-      "max_ms": 259.11
+      "p50_ms": 2.89,
+      "p95_ms": 3.24,
+      "p99_ms": 3.76,
+      "mean_ms": 3.15,
+      "min_ms": 0.76,
+      "max_ms": 48.44
     },
     "GET /recommendations/{user_id} (popularity fallback)": {
       "count": 200,
-      "p50_ms": 1.59,
-      "p95_ms": 1.87,
-      "p99_ms": 2.25,
-      "mean_ms": 1.81,
-      "min_ms": 1.45,
-      "max_ms": 38.49
+      "p50_ms": 1.58,
+      "p95_ms": 1.76,
+      "p99_ms": 1.89,
+      "mean_ms": 1.6,
+      "min_ms": 0.72,
+      "max_ms": 4.04
     },
     "POST /predict": {
       "count": 200,
-      "p50_ms": 1.1,
-      "p95_ms": 1.19,
-      "p99_ms": 1.28,
+      "p50_ms": 1.11,
+      "p95_ms": 1.2,
+      "p99_ms": 1.24,
       "mean_ms": 1.11,
-      "min_ms": 1.02,
-      "max_ms": 1.33
+      "min_ms": 1.03,
+      "max_ms": 1.27
     },
     "GET /movies (search)": {
       "count": 200,
-      "p50_ms": 14.47,
-      "p95_ms": 15.49,
-      "p99_ms": 18.22,
-      "mean_ms": 14.53,
-      "min_ms": 11.91,
-      "max_ms": 23.36
+      "p50_ms": 14.4,
+      "p95_ms": 15.87,
+      "p99_ms": 18.3,
+      "mean_ms": 14.38,
+      "min_ms": 11.77,
+      "max_ms": 24.15
     },
     "GET /metrics": {
       "count": 200,
-      "p50_ms": 0.52,
-      "p95_ms": 0.81,
-      "p99_ms": 1.11,
-      "mean_ms": 0.56,
-      "min_ms": 0.43,
-      "max_ms": 1.16
+      "p50_ms": 0.51,
+      "p95_ms": 0.72,
+      "p99_ms": 0.82,
+      "mean_ms": 0.53,
+      "min_ms": 0.44,
+      "max_ms": 0.89
     },
     "GET /health": {
       "count": 200,
-      "p50_ms": 0.77,
-      "p95_ms": 0.91,
-      "p99_ms": 1.15,
-      "mean_ms": 0.79,
-      "min_ms": 0.68,
-      "max_ms": 1.26
+      "p50_ms": 0.76,
+      "p95_ms": 0.83,
+      "p99_ms": 0.87,
+      "mean_ms": 0.77,
+      "min_ms": 0.71,
+      "max_ms": 0.89
     }
   },
   "primary_scenario": "GET /recommendations/{user_id} (neumf, k=10)",
   "primary_p50_ms": 2.73,
-  "primary_p95_ms": 3.17,
+  "primary_p95_ms": 3.07,
   "meets_target_p95": true
 }

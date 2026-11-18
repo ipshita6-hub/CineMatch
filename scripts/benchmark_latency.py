@@ -40,7 +40,10 @@ def percentiles(samples: list[float]) -> dict:
 def main() -> None:
     base = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8011"
     n = int(sys.argv[2]) if len(sys.argv) > 2 else 200
-    rng = random.Random(C.SEED)
+    # Deliberately NOT seeded from C.SEED: a fixed seed replays the same user
+    # sequence on every run, so a second run would be served entirely from the
+    # response cache and report cache-hit times as if they were model latency.
+    rng = random.Random()
 
     import pandas as pd
     user_ids = pd.read_csv(C.USER_MAPPING_CSV)["userId"].to_numpy()
@@ -92,8 +95,11 @@ def main() -> None:
         "target_ms": 200,
         "measured_on": "local development machine (Apple silicon, CPU inference)",
         "note": ("Measured against a locally running API with a warm TMDB metadata cache. "
-                 "A cold TMDB lookup adds network time; run scripts/prewarm_tmdb.py first. "
-                 "These figures describe this machine, not a production deployment."),
+                 "Users are drawn at random per run, so each request is a cache miss that "
+                 "actually scores the catalog. A cold TMDB lookup adds network time; run "
+                 "scripts/prewarm_tmdb.py first. These figures describe this machine, not a "
+                 "production deployment."),
+        "cache_policy": "uncached requests (random users per run)",
         "scenarios": scenarios,
         "primary_scenario": "GET /recommendations/{user_id} (neumf, k=10)",
         "primary_p50_ms": primary["p50_ms"],
