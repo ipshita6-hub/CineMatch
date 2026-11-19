@@ -11,10 +11,10 @@ export default function RatingStars({ value = null, onChange, size = 'md', disab
     <div className="flex items-center gap-0.5" onMouseLeave={() => setHover(null)}>
       {[1, 2, 3, 4, 5].map((star) => (
         <span key={star} className="relative">
-          <Star className={`${px} text-ink-600`} />
+          <Star className={`${px} text-plum-500`} />
           <span className="absolute inset-0 overflow-hidden"
                 style={{ width: `${Math.max(0, Math.min(1, shown - star + 1)) * 100}%` }}>
-            <Star className={`${px} fill-gold-400 text-gold-400`} />
+            <Star className={`${px} fill-gold-600 text-gold-600`} />
           </span>
           {!disabled && [0.5, 1].map((half) => (
             <button
@@ -29,7 +29,7 @@ export default function RatingStars({ value = null, onChange, size = 'md', disab
           ))}
         </span>
       ))}
-      {value != null && <span className="ml-2 text-xs font-semibold text-mist-300">{value.toFixed(1)}</span>}
+      {value != null && <span className="ml-2 text-xs font-semibold text-plum-600">{value.toFixed(1)}</span>}
     </div>
   )
 }

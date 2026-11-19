@@ -35,7 +35,7 @@ export default function Login() {
     <AuthShell
       title="Welcome back"
       subtitle="Sign in to see the recommendations fitted to your ratings."
-      footer={<>No account yet? <Link to="/register" className="font-semibold text-accent-300 hover:text-accent-200">Create one</Link></>}
+      footer={<>No account yet? <Link to="/register" className="font-semibold text-rose-700 hover:text-rose-800">Create one</Link></>}
     >
       <form onSubmit={submit} className="space-y-4" noValidate>
         <Field label="Username or email">
@@ -46,9 +46,9 @@ export default function Login() {
           <input className={inputClass} type="password" value={form.password} autoComplete="current-password"
                  onChange={(e) => setForm({ ...form, password: e.target.value })} />
         </Field>
-        {error && <p role="alert" className="rounded-lg bg-accent-500/10 px-3 py-2 text-sm text-accent-300">{error}</p>}
+        {error && <p role="alert" className="rounded-lg bg-rose-500/10 px-3 py-2 text-sm text-rose-700">{error}</p>}
         <button type="submit" disabled={busy}
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-accent-400 disabled:opacity-60">
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-rose-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-rose-600 disabled:opacity-60">
           {busy && <Loader2 className="h-4 w-4 animate-spin" />} Sign in
         </button>
       </form>

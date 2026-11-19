@@ -45,38 +45,38 @@ export default function Browse() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Browse the catalog</h1>
-        <p className="text-sm text-mist-400">
+        <h1 className="text-2xl font-bold text-plum-900">Browse the catalog</h1>
+        <p className="text-sm text-plum-500">
           {result.data ? `${result.data.total.toLocaleString()} movies match your filters` : 'MovieLens 20M catalog'}
         </p>
       </div>
 
       <div className="glass space-y-3 rounded-xl p-4">
         <div className="relative">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-mist-400" />
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-plum-500" />
           <input value={search} onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by title…" aria-label="Search movies by title"
-            className="w-full rounded-lg border border-ink-600 bg-ink-900 py-2.5 pl-10 pr-3 text-sm text-mist-200 outline-none transition placeholder:text-mist-400/60 focus:border-accent-500" />
+            className="w-full rounded-lg border border-blush-300 bg-blush-100 py-2.5 pl-10 pr-3 text-sm text-plum-700 outline-none transition placeholder:text-plum-500 focus:border-rose-500" />
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <SlidersHorizontal className="h-4 w-4 text-mist-400" aria-hidden />
+          <SlidersHorizontal className="h-4 w-4 text-plum-500" aria-hidden />
           <select value={genre} onChange={(e) => { setGenre(e.target.value); setPage(1) }} aria-label="Filter by genre"
-            className="rounded-lg border border-ink-600 bg-ink-900 px-3 py-2 text-sm text-mist-200 outline-none focus:border-accent-500">
+            className="rounded-lg border border-blush-300 bg-blush-100 px-3 py-2 text-sm text-plum-700 outline-none focus:border-rose-500">
             <option value="">All genres</option>
             {(genres.data || []).map((g) => <option key={g} value={g}>{g}</option>)}
           </select>
           <select value={sort} onChange={(e) => { setSort(e.target.value); setPage(1) }} aria-label="Sort by"
-            className="rounded-lg border border-ink-600 bg-ink-900 px-3 py-2 text-sm text-mist-200 outline-none focus:border-accent-500">
+            className="rounded-lg border border-blush-300 bg-blush-100 px-3 py-2 text-sm text-plum-700 outline-none focus:border-rose-500">
             {SORTS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
           </select>
           <input type="number" value={minYear} placeholder="From year" aria-label="Minimum release year"
             onChange={(e) => { setMinYear(e.target.value); setPage(1) }}
-            className="w-28 rounded-lg border border-ink-600 bg-ink-900 px-3 py-2 text-sm text-mist-200 outline-none focus:border-accent-500" />
+            className="w-28 rounded-lg border border-blush-300 bg-blush-100 px-3 py-2 text-sm text-plum-700 outline-none focus:border-rose-500" />
           <input type="number" value={maxYear} placeholder="To year" aria-label="Maximum release year"
             onChange={(e) => { setMaxYear(e.target.value); setPage(1) }}
-            className="w-28 rounded-lg border border-ink-600 bg-ink-900 px-3 py-2 text-sm text-mist-200 outline-none focus:border-accent-500" />
+            className="w-28 rounded-lg border border-blush-300 bg-blush-100 px-3 py-2 text-sm text-plum-700 outline-none focus:border-rose-500" />
           {(genre || minYear || maxYear || search) && (
-            <button type="button" className="text-sm text-mist-400 underline hover:text-accent-300"
+            <button type="button" className="text-sm text-plum-500 underline hover:text-rose-700"
               onClick={() => { setGenre(''); setMinYear(''); setMaxYear(''); setSearch(''); setPage(1) }}>
               Reset
             </button>
@@ -97,12 +97,12 @@ export default function Browse() {
           </div>
           <div className="flex items-center justify-center gap-3 pt-2">
             <button type="button" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}
-              className="flex items-center gap-1 rounded-lg border border-ink-600 px-3 py-2 text-sm text-mist-300 transition hover:border-accent-500 disabled:opacity-40">
+              className="flex items-center gap-1 rounded-lg border border-blush-300 px-3 py-2 text-sm text-plum-600 transition hover:border-rose-500 disabled:opacity-40">
               <ChevronLeft className="h-4 w-4" /> Previous
             </button>
-            <span className="text-sm text-mist-400">Page {result.data.page} of {result.data.pages}</span>
+            <span className="text-sm text-plum-500">Page {result.data.page} of {result.data.pages}</span>
             <button type="button" disabled={page >= result.data.pages} onClick={() => setPage((p) => p + 1)}
-              className="flex items-center gap-1 rounded-lg border border-ink-600 px-3 py-2 text-sm text-mist-300 transition hover:border-accent-500 disabled:opacity-40">
+              className="flex items-center gap-1 rounded-lg border border-blush-300 px-3 py-2 text-sm text-plum-600 transition hover:border-rose-500 disabled:opacity-40">
               Next <ChevronRight className="h-4 w-4" />
             </button>
           </div>

@@ -1,11 +1,15 @@
 /**
  * Chart tokens.
  *
- * The three categorical slots below were validated with the dataviz palette
- * validator against this app's chart surface (#10131d) on the all-pairs
- * pairlist: CVD ΔE 9.4, normal-vision ΔE 20.9, contrast ≥ 3:1 — all checks
- * pass. Hues are assigned to entities in fixed order and never cycled; a
- * filter that drops a model must not repaint the survivors.
+ * The three categorical slots below are unchanged from the dark theme: they
+ * were re-validated with the dataviz palette validator against the blush
+ * chart surface (#fbf1f3) on the all-pairs pairlist and still pass every
+ * check — lightness band, chroma floor, CVD ΔE 9.4 (deutan), normal-vision
+ * ΔE 26.5, contrast ≥ 3:1. Hues are assigned to entities in fixed order and
+ * never cycled; a filter that drops a model must not repaint the survivors.
+ *
+ * Model identity stays blue/orange/green rather than following the pink UI
+ * theme on purpose: three tints of one hue would fail CVD separation.
  */
 export const SERIES = {
   Popularity: '#3987e5',          // slot 1 · blue
@@ -24,13 +28,17 @@ export const LABELS = {
 
 export const CURVE = { train: '#3987e5', validation: '#d95926' }
 
-// Sequential ramp: one hue, light → dark (used for magnitude, never identity)
-export const SEQ = ['#9fd0f5', '#6cb2ee', '#3987e5', '#2a66b4', '#1c4680']
+/**
+ * Sequential ramp: one hue, light → dark (magnitude, never identity).
+ * Re-stepped for the light theme — the dark theme's two palest steps sat at
+ * 1.5:1 and 2.1:1 against the blush card and read as empty bars.
+ */
+export const SEQ = ['#a8cdf2', '#6fa3df', '#3e82cc', '#2a5d9e', '#1a3d6b']
 
-export const AXIS = '#8b93a7'
-export const GRID = 'rgba(139,147,167,0.14)'
-export const SURFACE = '#10131d'
-export const TEXT = '#d3d8e4'
+export const AXIS = '#7a5c67'
+export const GRID = 'rgba(122,92,103,0.20)'
+export const SURFACE = '#fbf1f3'
+export const TEXT = '#4a2f38'
 
 export const axisProps = {
   stroke: AXIS,
@@ -41,12 +49,14 @@ export const axisProps = {
 
 export const tooltipStyle = {
   contentStyle: {
-    background: '#161a26',
-    border: '1px solid rgba(139,147,167,0.22)',
+    background: '#ffffff',
+    border: '1px solid rgba(107,74,85,0.18)',
     borderRadius: 10,
+    // A white tooltip needs a shadow to separate from a near-white card.
+    boxShadow: '0 10px 30px -12px rgba(74,47,56,0.28)',
     fontSize: 12,
     color: TEXT,
   },
-  labelStyle: { color: '#aab2c5', fontWeight: 600, marginBottom: 2 },
-  cursor: { fill: 'rgba(139,147,167,0.08)' },
+  labelStyle: { color: '#4a2f38', fontWeight: 600, marginBottom: 2 },
+  cursor: { fill: 'rgba(107,74,85,0.07)' },
 }

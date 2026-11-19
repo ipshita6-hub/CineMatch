@@ -27,25 +27,25 @@ export default function Discover() {
     <div className="space-y-10">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white">Discover</h1>
-          <p className="text-sm text-mist-400">
+          <h1 className="text-2xl font-bold text-plum-900">Discover</h1>
+          <p className="text-sm text-plum-500">
             {status.data?.method
               ? `Personalisation method: ${status.data.method}`
               : 'Loading your personalisation status…'}
           </p>
         </div>
         <Link to="/app/movies"
-          className="flex items-center gap-2 rounded-lg border border-ink-600 px-4 py-2 text-sm font-semibold text-mist-300 transition hover:border-accent-500 hover:text-white">
+          className="flex items-center gap-2 rounded-lg border border-blush-300 px-4 py-2 text-sm font-semibold text-plum-600 transition hover:border-rose-500 hover:text-plum-900">
           <Search className="h-4 w-4" /> Search the catalog
         </Link>
       </div>
 
       {recs.data && !recs.data.personalised && (
         <div className="glass flex items-start gap-3 rounded-xl p-4">
-          <Info className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
-          <p className="text-sm text-mist-300">
+          <Info className="mt-0.5 h-4 w-4 shrink-0 text-gold-600" />
+          <p className="text-sm text-plum-600">
             {recs.data.fallback_reason || 'Showing popularity-based results, not personalised ones.'}{' '}
-            <Link to="/app/movies" className="font-semibold text-accent-300 underline">Rate a few movies</Link>{' '}
+            <Link to="/app/movies" className="font-semibold text-rose-700 underline">Rate a few movies</Link>{' '}
             to fit your embedding.
           </p>
         </div>

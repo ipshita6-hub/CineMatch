@@ -23,19 +23,19 @@ export default function AppLayout() {
 
   const linkClass = ({ isActive }) =>
     `flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition ${
-      isActive ? 'bg-accent-500/15 text-accent-300' : 'text-mist-400 hover:bg-ink-800 hover:text-mist-200'
+      isActive ? 'bg-rose-500/15 text-rose-700' : 'text-plum-500 hover:bg-blush-100 hover:text-plum-700'
     }`
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-40 border-b border-ink-700/60 bg-ink-950/85 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-blush-200/60 bg-blush-50/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
           <Link to="/app" className="flex items-center gap-2">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-accent-500 to-accent-300 font-black text-ink-950">
-              N
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-rose-500 to-rose-700 font-black text-white">
+              C
             </span>
-            <span className="text-sm font-extrabold tracking-tight text-mist-200">
-              Cine<span className="text-accent-400">NeuMF</span>
+            <span className="text-sm font-extrabold tracking-tight text-plum-700">
+              Cine<span className="text-rose-600">Match</span>
             </span>
           </Link>
 
@@ -48,27 +48,27 @@ export default function AppLayout() {
           </nav>
 
           <div className="ml-auto flex items-center gap-2">
-            <span className="hidden text-xs text-mist-400 sm:block">{user?.username}</span>
+            <span className="hidden text-xs text-plum-500 sm:block">{user?.username}</span>
             <button type="button" onClick={handleLogout}
-              className="hidden items-center gap-1.5 rounded-lg border border-ink-700 px-3 py-1.5 text-xs font-semibold text-mist-300 transition hover:border-accent-500 hover:text-white md:flex">
+              className="hidden items-center gap-1.5 rounded-lg border border-blush-200 px-3 py-1.5 text-xs font-semibold text-plum-600 transition hover:border-rose-500 hover:text-plum-900 md:flex">
               <LogOut className="h-3.5 w-3.5" /> Sign out
             </button>
             <button type="button" aria-label="Toggle navigation" onClick={() => setOpen((o) => !o)}
-              className="rounded-lg border border-ink-700 p-2 text-mist-300 md:hidden">
+              className="rounded-lg border border-blush-200 p-2 text-plum-600 md:hidden">
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
           </div>
         </div>
 
         {open && (
-          <nav className="space-y-1 border-t border-ink-700/60 px-4 py-3 md:hidden">
+          <nav className="space-y-1 border-t border-blush-200/60 px-4 py-3 md:hidden">
             {NAV.map(({ to, label, icon: Icon, end }) => (
               <NavLink key={to} to={to} end={end} className={linkClass} onClick={() => setOpen(false)}>
                 <Icon className="h-4 w-4" aria-hidden /> {label}
               </NavLink>
             ))}
             <button type="button" onClick={handleLogout}
-              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-mist-400 hover:text-white">
+              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-plum-500 hover:text-plum-900">
               <LogOut className="h-4 w-4" /> Sign out
             </button>
           </nav>
@@ -79,7 +79,7 @@ export default function AppLayout() {
         <Outlet />
       </main>
 
-      <footer className="mx-auto max-w-7xl px-4 pb-10 pt-6 text-xs text-mist-400">
+      <footer className="mx-auto max-w-7xl px-4 pb-10 pt-6 text-xs text-plum-500">
         NeuMF (He et al., WWW 2017) trained on MovieLens 20M · the PRD specifies MovieLens 25M;
         this project uses the 20M release that was supplied.
       </footer>

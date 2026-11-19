@@ -18,7 +18,7 @@ The system learns user and movie representations from 20 million explicit rating
 - predict a **calibrated 0.5–5.0 star rating** for a given user/movie pair,
 - compare **NeuMF against a matrix-factorization baseline and a popularity baseline** under one
   evaluation protocol, and
-- expose all of it through a REST API and a cinematic React front end with an ML analytics dashboard.
+- expose all of it through a REST API and a blush-pink React front end with an ML analytics dashboard.
 
 ## 2. Problem statement
 

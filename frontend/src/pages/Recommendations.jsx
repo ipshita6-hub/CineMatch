@@ -32,29 +32,29 @@ export default function Recommendations() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="flex items-center gap-2 text-2xl font-bold text-white">
-            <Sparkles className="h-5 w-5 text-accent-400" /> My recommendations
+          <h1 className="flex items-center gap-2 text-2xl font-bold text-plum-900">
+            <Sparkles className="h-5 w-5 text-rose-600" /> My recommendations
           </h1>
-          <p className="text-sm text-mist-400">
+          <p className="text-sm text-plum-500">
             Movies you have already rated are excluded automatically.
             {status.data?.method && ` Personalisation: ${status.data.method}.`}
           </p>
         </div>
         <button type="button" onClick={recs.reload}
-          className="flex items-center gap-2 rounded-lg border border-ink-600 px-4 py-2 text-sm font-semibold text-mist-300 transition hover:border-accent-500 hover:text-white">
+          className="flex items-center gap-2 rounded-lg border border-blush-300 px-4 py-2 text-sm font-semibold text-plum-600 transition hover:border-rose-500 hover:text-plum-900">
           <RefreshCw className={`h-4 w-4 ${recs.loading ? 'animate-spin' : ''}`} /> Refresh
         </button>
       </div>
 
       <div className="glass space-y-4 rounded-xl p-4">
         <div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-mist-400">Model</p>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-plum-500">Model</p>
           <div className="flex flex-wrap gap-2">
             {MODELS.map(([value, label, hint]) => (
               <button key={value} type="button" onClick={() => setModel(value)} title={hint}
                 className={`rounded-lg border px-3.5 py-2 text-sm font-medium transition ${
-                  model === value ? 'border-accent-500 bg-accent-500/15 text-accent-200'
-                                  : 'border-ink-600 text-mist-300 hover:border-mist-400'}`}>
+                  model === value ? 'border-rose-500 bg-rose-500/15 text-rose-800'
+                                  : 'border-blush-300 text-plum-600 hover:border-blush-300'}`}>
                 {label}
               </button>
             ))}
@@ -62,17 +62,17 @@ export default function Recommendations() {
         </div>
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-mist-400">Show</span>
+            <span className="text-xs font-semibold uppercase tracking-wider text-plum-500">Show</span>
             {SIZES.map((n) => (
               <button key={n} type="button" onClick={() => setLimit(n)}
                 className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
-                  limit === n ? 'bg-accent-500 text-white' : 'bg-ink-800 text-mist-300 hover:bg-ink-700'}`}>
+                  limit === n ? 'bg-rose-500 text-white' : 'bg-blush-100 text-plum-600 hover:bg-blush-200'}`}>
                 Top {n}
               </button>
             ))}
           </div>
           <select value={genre} onChange={(e) => setGenre(e.target.value)} aria-label="Filter recommendations by genre"
-            className="rounded-lg border border-ink-600 bg-ink-900 px-3 py-2 text-sm text-mist-200 outline-none focus:border-accent-500">
+            className="rounded-lg border border-blush-300 bg-blush-100 px-3 py-2 text-sm text-plum-700 outline-none focus:border-rose-500">
             <option value="">All genres</option>
             {(genres.data || []).map((g) => <option key={g} value={g}>{g}</option>)}
           </select>
@@ -81,15 +81,15 @@ export default function Recommendations() {
 
       {data && (
         <div className="glass flex flex-wrap items-start gap-3 rounded-xl p-4 text-sm">
-          <Info className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
+          <Info className="mt-0.5 h-4 w-4 shrink-0 text-gold-600" />
           <div className="space-y-1">
-            <p className="text-mist-300">
-              Served by <span className="font-semibold text-white">{data.model_used}</span> in{' '}
+            <p className="text-plum-600">
+              Served by <span className="font-semibold text-plum-900">{data.model_used}</span> in{' '}
               {data.generated_in_ms} ms{data.cached ? ' (cached)' : ''}.
               {data.fallback_used && ` Requested ${data.model_requested}.`}
             </p>
-            {data.fallback_reason && <p className="text-mist-400">{data.fallback_reason}</p>}
-            {items[0]?.explanation && <p className="text-mist-400">{items[0].explanation}</p>}
+            {data.fallback_reason && <p className="text-plum-500">{data.fallback_reason}</p>}
+            {items[0]?.explanation && <p className="text-plum-500">{items[0].explanation}</p>}
           </div>
         </div>
       )}

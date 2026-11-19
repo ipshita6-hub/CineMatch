@@ -49,24 +49,24 @@ export default function Analytics() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">ML analytics</h1>
-        <p className="text-sm text-mist-400">
+        <h1 className="text-2xl font-bold text-plum-900">ML analytics</h1>
+        <p className="text-sm text-plum-500">
           {metrics.data?.generated_at
             ? `Every figure comes from the evaluation run of ${new Date(metrics.data.generated_at).toLocaleString()}. Metrics that were never computed read "Not evaluated".`
             : 'Loading the evaluation artifacts…'}
         </p>
         {metrics.data?.dataset_note && (
-          <p className="mt-2 rounded-lg border border-gold-400/25 bg-gold-400/10 px-3 py-2 text-xs text-gold-400">
+          <p className="mt-2 rounded-lg border border-gold-600/25 bg-gold-600/10 px-3 py-2 text-xs text-gold-600">
             {metrics.data.dataset_note}
           </p>
         )}
       </div>
 
-      <div className="no-scrollbar flex gap-2 overflow-x-auto border-b border-ink-700/60 pb-px">
+      <div className="no-scrollbar flex gap-2 overflow-x-auto border-b border-blush-200/60 pb-px">
         {TABS.map(([key, label, Icon]) => (
           <button key={key} type="button" onClick={() => setTab(key)}
             className={`flex shrink-0 items-center gap-1.5 rounded-t-lg px-3.5 py-2.5 text-sm font-medium transition ${
-              tab === key ? 'border-b-2 border-accent-500 text-white' : 'text-mist-400 hover:text-mist-200'}`}>
+              tab === key ? 'border-b-2 border-rose-500 text-plum-900' : 'text-plum-500 hover:text-plum-700'}`}>
             <Icon className="h-4 w-4" aria-hidden /> {label}
           </button>
         ))}
@@ -232,8 +232,8 @@ function PerformanceTab({ metrics, comparison, present, latency }) {
   return (
     <div className="space-y-5">
       {proto && (
-        <div className="glass rounded-xl p-4 text-xs leading-relaxed text-mist-400">
-          <span className="font-semibold text-mist-200">Protocol.</span>{' '}
+        <div className="glass rounded-xl p-4 text-xs leading-relaxed text-plum-500">
+          <span className="font-semibold text-plum-700">Protocol.</span>{' '}
           {proto.split} · {proto.relevance} · {proto.candidates_per_user} candidates per user
           ({proto.negatives_per_user} sampled negatives) · identical candidate sets for every model ·
           ties broken {proto.tie_breaking}. {proto.precision_recall_note}
@@ -266,10 +266,10 @@ function PerformanceTab({ metrics, comparison, present, latency }) {
             <YAxis domain={[0, 1]} {...axisProps} />
             <Tooltip {...tooltipStyle} formatter={(v, n) => [num(v), n]} />
             <Legend wrapperStyle={{ fontSize: 12, color: AXIS }} />
-            <Bar dataKey="HR@10" radius={[4, 4, 0, 0]} maxBarSize={44}>
+            <Bar fill={AXIS} dataKey="HR@10" radius={[4, 4, 0, 0]} maxBarSize={44}>
               {comparison.map((c) => <Cell key={c.key} fill={SERIES[c.key]} />)}
             </Bar>
-            <Bar dataKey="NDCG@10" radius={[4, 4, 0, 0]} maxBarSize={44} fillOpacity={0.55}>
+            <Bar fill={AXIS} dataKey="NDCG@10" radius={[4, 4, 0, 0]} maxBarSize={44} fillOpacity={0.55}>
               {comparison.map((c) => <Cell key={c.key} fill={SERIES[c.key]} />)}
             </Bar>
           </BarChart>
@@ -320,18 +320,18 @@ function PerformanceTab({ metrics, comparison, present, latency }) {
         description="Precision@10 and Recall@10 are included because the PRD asks for them; with exactly one relevant item per user they are fixed functions of HR@10.">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] text-left text-sm">
-            <thead className="text-[11px] uppercase tracking-wider text-mist-400">
+            <thead className="text-[11px] uppercase tracking-wider text-plum-500">
               <tr>
                 {['Model', 'HR@10', 'NDCG@10', 'Precision@10', 'Recall@10', 'F1@10', 'MRR', 'ROC-AUC', 'RMSE'].map((h) => (
                   <th key={h} className="pb-2 pr-4">{h}</th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-ink-700/60 text-mist-300">
+            <tbody className="divide-y divide-blush-200/60 text-plum-600">
               {Object.entries(models).map(([key, m]) => (
-                <tr key={key} className={key === 'NeuMF' ? 'font-semibold text-white' : ''}>
+                <tr key={key} className={key === 'NeuMF' ? 'font-semibold text-plum-900' : ''}>
                   <td className="py-2.5 pr-4 flex items-center gap-2">
-                    <span className="h-2.5 w-2.5 rounded-sm" style={{ background: SERIES[key] || '#8b93a7' }} aria-hidden />
+                    <span className="h-2.5 w-2.5 rounded-sm" style={{ background: SERIES[key] || '#7a5c67' }} aria-hidden />
                     {LABELS[key] || key}
                   </td>
                   {['HR@10', 'NDCG@10', 'Precision@10', 'Recall@10', 'F1@10', 'MRR', 'ROC_AUC'].map((f) => (
@@ -530,7 +530,7 @@ function ModelTab({ info }) {
         <StatTile label="Inference device" value={d.device} hint={`loaded ${d.loaded_at}`} />
       </div>
       {d.dataset_deviation_note && (
-        <p className="rounded-lg border border-gold-400/25 bg-gold-400/10 px-3 py-2 text-xs text-gold-400">
+        <p className="rounded-lg border border-gold-600/25 bg-gold-600/10 px-3 py-2 text-xs text-gold-600">
           {d.dataset_deviation_note}
         </p>
       )}
@@ -566,8 +566,8 @@ function HybridTab({ metrics }) {
 
   return (
     <div className="space-y-5">
-      <div className="glass rounded-xl p-4 text-xs leading-relaxed text-mist-400">
-        <span className="font-semibold text-mist-200">Experimental.</span> {h.note}
+      <div className="glass rounded-xl p-4 text-xs leading-relaxed text-plum-500">
+        <span className="font-semibold text-plum-700">Experimental.</span> {h.note}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -592,10 +592,10 @@ function HybridTab({ metrics }) {
             <YAxis type="category" dataKey="name" width={150} {...axisProps} />
             <Tooltip {...tooltipStyle} formatter={(v, n) => [num(v), n]} />
             <Legend wrapperStyle={{ fontSize: 12, color: AXIS }} />
-            <Bar dataKey="HR@10" radius={[0, 4, 4, 0]} maxBarSize={16}>
+            <Bar fill={AXIS} dataKey="HR@10" radius={[0, 4, 4, 0]} maxBarSize={16}>
               {grid.map((g, i) => <Cell key={i} fill={g.isPure ? SERIES.MatrixFactorization : SERIES.NeuMF} />)}
             </Bar>
-            <Bar dataKey="NDCG@10" radius={[0, 4, 4, 0]} maxBarSize={16} fillOpacity={0.55}>
+            <Bar fill={AXIS} dataKey="NDCG@10" radius={[0, 4, 4, 0]} maxBarSize={16} fillOpacity={0.55}>
               {grid.map((g, i) => <Cell key={i} fill={g.isPure ? SERIES.MatrixFactorization : SERIES.NeuMF} />)}
             </Bar>
           </BarChart>
@@ -639,10 +639,10 @@ function ExperimentTab({ experiments }) {
             <YAxis type="category" dataKey="name" width={220} {...axisProps} />
             <Tooltip {...tooltipStyle} formatter={(v, n) => [num(v), n]} />
             <Legend wrapperStyle={{ fontSize: 12, color: AXIS }} />
-            <Bar dataKey="HR@10" radius={[0, 4, 4, 0]} maxBarSize={18}>
+            <Bar fill={AXIS} dataKey="HR@10" radius={[0, 4, 4, 0]} maxBarSize={18}>
               {chart.map((c, i) => <Cell key={i} fill={SERIES[c.key]} />)}
             </Bar>
-            <Bar dataKey="NDCG@10" radius={[0, 4, 4, 0]} maxBarSize={18} fillOpacity={0.55}>
+            <Bar fill={AXIS} dataKey="NDCG@10" radius={[0, 4, 4, 0]} maxBarSize={18} fillOpacity={0.55}>
               {chart.map((c, i) => <Cell key={i} fill={SERIES[c.key]} />)}
             </Bar>
           </BarChart>

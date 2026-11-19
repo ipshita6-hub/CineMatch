@@ -16,17 +16,17 @@ export default function MovieRow({
     <section className="space-y-3">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <h2 className="text-lg font-bold text-mist-200">{title}</h2>
-          {subtitle && <p className="text-xs text-mist-400">{subtitle}</p>}
+          <h2 className="text-lg font-bold text-plum-700">{title}</h2>
+          {subtitle && <p className="text-xs text-plum-500">{subtitle}</p>}
         </div>
         {!loading && !error && movies?.length > 4 && (
           <div className="hidden gap-1 sm:flex">
             <button type="button" aria-label={`Scroll ${title} left`} onClick={() => scroll(-1)}
-              className="rounded-lg border border-ink-700 p-1.5 text-mist-300 transition hover:border-accent-500 hover:text-white">
+              className="rounded-lg border border-blush-200 p-1.5 text-plum-600 transition hover:border-rose-500 hover:text-plum-900">
               <ChevronLeft className="h-4 w-4" />
             </button>
             <button type="button" aria-label={`Scroll ${title} right`} onClick={() => scroll(1)}
-              className="rounded-lg border border-ink-700 p-1.5 text-mist-300 transition hover:border-accent-500 hover:text-white">
+              className="rounded-lg border border-blush-200 p-1.5 text-plum-600 transition hover:border-rose-500 hover:text-plum-900">
               <ChevronRight className="h-4 w-4" />
             </button>
           </div>

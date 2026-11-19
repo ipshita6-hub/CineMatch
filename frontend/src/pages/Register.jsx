@@ -43,7 +43,7 @@ export default function Register() {
     <AuthShell
       title="Create your account"
       subtitle="You will rate a handful of movies next so a user embedding can be fitted for you."
-      footer={<>Already registered? <Link to="/login" className="font-semibold text-accent-300 hover:text-accent-200">Sign in</Link></>}
+      footer={<>Already registered? <Link to="/login" className="font-semibold text-rose-700 hover:text-rose-800">Sign in</Link></>}
     >
       <form onSubmit={submit} className="space-y-4" noValidate>
         <Field label="Username" error={errors.username}>
@@ -58,9 +58,9 @@ export default function Register() {
           <input className={inputClass} type="password" value={form.password} autoComplete="new-password"
                  onChange={(e) => setForm({ ...form, password: e.target.value })} />
         </Field>
-        {error && <p role="alert" className="rounded-lg bg-accent-500/10 px-3 py-2 text-sm text-accent-300">{error}</p>}
+        {error && <p role="alert" className="rounded-lg bg-rose-500/10 px-3 py-2 text-sm text-rose-700">{error}</p>}
         <button type="submit" disabled={busy}
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-accent-400 disabled:opacity-60">
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-rose-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-rose-600 disabled:opacity-60">
           {busy && <Loader2 className="h-4 w-4 animate-spin" />} Create account
         </button>
       </form>

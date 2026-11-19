@@ -53,12 +53,12 @@ export default function Profile() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-white">{user?.username}</h1>
-        <p className="text-sm text-mist-400">{user?.email}</p>
+        <h1 className="text-2xl font-bold text-plum-900">{user?.username}</h1>
+        <p className="text-sm text-plum-500">{user?.email}</p>
       </div>
 
       <section className="glass rounded-xl p-5">
-        <h2 className="font-semibold text-mist-200">Personalisation</h2>
+        <h2 className="font-semibold text-plum-700">Personalisation</h2>
         {status.loading && <Spinner />}
         {status.data && (
           <dl className="mt-3 grid gap-4 sm:grid-cols-4">
@@ -69,14 +69,14 @@ export default function Profile() {
               ['Fitted from', status.data.embedding_ratings ? `${status.data.embedding_ratings} ratings` : '—'],
             ].map(([k, v]) => (
               <div key={k}>
-                <dt className="text-[11px] uppercase tracking-wider text-mist-400">{k}</dt>
-                <dd className="mt-1 text-sm font-semibold text-mist-200">{v}</dd>
+                <dt className="text-[11px] uppercase tracking-wider text-plum-500">{k}</dt>
+                <dd className="mt-1 text-sm font-semibold text-plum-700">{v}</dd>
               </div>
             ))}
           </dl>
         )}
         {status.data && !status.data.embedding_fitted && (
-          <p className="mt-3 text-xs text-mist-400">
+          <p className="mt-3 text-xs text-plum-500">
             Rate at least three movies and a NeuMF user embedding will be fitted for your account
             automatically.
           </p>
@@ -84,8 +84,8 @@ export default function Profile() {
       </section>
 
       <section className="glass rounded-xl p-5">
-        <h2 className="font-semibold text-mist-200">Favourite genres</h2>
-        <p className="text-xs text-mist-400">Used for filters and the hybrid re-ranker.</p>
+        <h2 className="font-semibold text-plum-700">Favourite genres</h2>
+        <p className="text-xs text-plum-500">Used for filters and the hybrid re-ranker.</p>
         {genres.error && <ErrorState message={genres.error} onRetry={genres.reload} />}
         <div className="mt-4 flex flex-wrap gap-2">
           {(genres.data || []).map((g) => {
@@ -93,8 +93,8 @@ export default function Profile() {
             return (
               <button key={g} type="button" onClick={() => toggle(g)}
                 className={`flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm transition ${
-                  on ? 'border-accent-500 bg-accent-500/15 text-accent-200'
-                     : 'border-ink-600 text-mist-300 hover:border-mist-400'}`}>
+                  on ? 'border-rose-500 bg-rose-500/15 text-rose-800'
+                     : 'border-blush-300 text-plum-600 hover:border-blush-300'}`}>
                 {on && <Check className="h-3.5 w-3.5" />} {g}
               </button>
             )
@@ -102,22 +102,22 @@ export default function Profile() {
         </div>
         <div className="mt-4 flex items-center gap-3">
           <button type="button" onClick={save} disabled={saving}
-            className="flex items-center gap-2 rounded-lg bg-accent-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-accent-400 disabled:opacity-60">
+            className="flex items-center gap-2 rounded-lg bg-rose-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-600 disabled:opacity-60">
             {saving && <Loader2 className="h-4 w-4 animate-spin" />} Save preferences
           </button>
-          {message && <span className="text-sm text-teal-400">{message}</span>}
-          {error && <span role="alert" className="text-sm text-accent-300">{error}</span>}
+          {message && <span className="text-sm text-teal-700">{message}</span>}
+          {error && <span role="alert" className="text-sm text-rose-700">{error}</span>}
         </div>
       </section>
 
       <section className="space-y-3">
-        <h2 className="font-semibold text-mist-200">Movies you rated</h2>
+        <h2 className="font-semibold text-plum-700">Movies you rated</h2>
         {ratings.loading && <Spinner />}
         {ratings.error && <ErrorState message={ratings.error} onRetry={ratings.reload} />}
         {ratings.data?.items?.length === 0 && (
           <EmptyState title="No ratings yet"
             hint="Rate movies from the catalog to train your personal embedding."
-            action={<Link to="/app/movies" className="mt-2 rounded-lg bg-accent-500 px-4 py-2 text-sm font-semibold text-white">Browse movies</Link>} />
+            action={<Link to="/app/movies" className="mt-2 rounded-lg bg-rose-500 px-4 py-2 text-sm font-semibold text-white">Browse movies</Link>} />
         )}
         {ratings.data?.items?.length > 0 && (
           <div className="grid grid-cols-2 justify-items-center gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
@@ -126,7 +126,7 @@ export default function Profile() {
                 <MovieCard movie={m} />
                 <button type="button" aria-label={`Remove your rating of ${m.title}`}
                   onClick={() => removeRating(m.movie_id)}
-                  className="absolute -right-2 -top-2 rounded-full border border-ink-600 bg-ink-900 p-1.5 text-mist-400 transition hover:border-accent-500 hover:text-accent-300">
+                  className="absolute -right-2 -top-2 rounded-full border border-blush-300 bg-blush-100 p-1.5 text-plum-500 transition hover:border-rose-500 hover:text-rose-700">
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>
               </div>
@@ -136,7 +136,7 @@ export default function Profile() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="font-semibold text-mist-200">Recommendation history</h2>
+        <h2 className="font-semibold text-plum-700">Recommendation history</h2>
         {history.loading && <Spinner />}
         {history.data?.items?.length === 0 && (
           <EmptyState title="Nothing served yet" hint="Your served recommendations will be logged here." />
@@ -144,19 +144,19 @@ export default function Profile() {
         {history.data?.items?.length > 0 && (
           <div className="glass overflow-x-auto rounded-xl">
             <table className="w-full min-w-[520px] text-left text-sm">
-              <thead className="text-[11px] uppercase tracking-wider text-mist-400">
+              <thead className="text-[11px] uppercase tracking-wider text-plum-500">
                 <tr><th className="px-4 py-3">Movie</th><th className="px-4 py-3">Model</th>
                     <th className="px-4 py-3">Rank</th><th className="px-4 py-3">Score</th>
                     <th className="px-4 py-3">When</th></tr>
               </thead>
-              <tbody className="divide-y divide-ink-700/60 text-mist-300">
+              <tbody className="divide-y divide-blush-200/60 text-plum-600">
                 {history.data.items.slice(0, 25).map((h, i) => (
                   <tr key={`${h.movie_id}-${i}`}>
                     <td className="px-4 py-2.5">{h.title}</td>
                     <td className="px-4 py-2.5">{h.model_name}</td>
                     <td className="px-4 py-2.5">#{h.rank}</td>
                     <td className="px-4 py-2.5">{h.score?.toFixed(3)}</td>
-                    <td className="px-4 py-2.5 text-mist-400">{new Date(h.created_at).toLocaleString()}</td>
+                    <td className="px-4 py-2.5 text-plum-500">{new Date(h.created_at).toLocaleString()}</td>
                   </tr>
                 ))}
               </tbody>

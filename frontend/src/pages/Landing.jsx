@@ -22,52 +22,52 @@ export default function Landing() {
     <div className="min-h-screen">
       <header className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5">
         <div className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-accent-500 to-accent-300 font-black text-ink-950">N</span>
-          <span className="font-extrabold tracking-tight">Cine<span className="text-accent-400">NeuMF</span></span>
+          <span className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-rose-500 to-rose-700 font-black text-white">C</span>
+          <span className="font-extrabold tracking-tight">Cine<span className="text-rose-600">Match</span></span>
         </div>
         <div className="flex items-center gap-2">
-          <Link to="/login" className="rounded-lg px-4 py-2 text-sm font-semibold text-mist-300 transition hover:text-white">Sign in</Link>
-          <Link to="/register" className="rounded-lg bg-accent-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-accent-400">Create account</Link>
+          <Link to="/login" className="rounded-lg px-4 py-2 text-sm font-semibold text-plum-600 transition hover:text-plum-900">Sign in</Link>
+          <Link to="/register" className="rounded-lg bg-rose-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-600">Create account</Link>
         </div>
       </header>
 
       {/* Hero */}
       <section className="mx-auto grid max-w-7xl gap-10 px-4 pb-16 pt-10 lg:grid-cols-[1.05fr_1fr] lg:items-center">
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <span className="inline-flex items-center gap-2 rounded-full border border-ink-700 bg-ink-850 px-3 py-1 text-xs font-medium text-mist-300">
-            <Sparkles className="h-3.5 w-3.5 text-accent-400" />
+          <span className="inline-flex items-center gap-2 rounded-full border border-blush-200 bg-card px-3 py-1 text-xs font-medium text-plum-600">
+            <Sparkles className="h-3.5 w-3.5 text-rose-600" />
             Neural Collaborative Filtering · He et al., WWW 2017
           </span>
-          <h1 className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl">
+          <h1 className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight text-plum-900 sm:text-5xl">
             Recommendations learned from<br />
-            <span className="bg-gradient-to-r from-accent-400 to-gold-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-rose-600 to-gold-600 bg-clip-text text-transparent">
               20 million real ratings
             </span>
           </h1>
-          <p className="mt-4 max-w-xl text-mist-300">
+          <p className="mt-4 max-w-xl text-plum-600">
             A NeuMF model — a generalized matrix-factorization branch fused with a multi-layer
             perceptron — trained on MovieLens 20M, served through FastAPI, and benchmarked
             against both a matrix-factorization and a popularity baseline on identical
             candidate sets.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link to="/register" className="flex items-center gap-2 rounded-lg bg-accent-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-accent-400">
+            <Link to="/register" className="flex items-center gap-2 rounded-lg bg-rose-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-rose-600">
               Get recommendations <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link to="/login" className="rounded-lg border border-ink-600 px-5 py-3 text-sm font-semibold text-mist-200 transition hover:border-accent-500 hover:text-white">
+            <Link to="/login" className="rounded-lg border border-blush-300 px-5 py-3 text-sm font-semibold text-plum-700 transition hover:border-rose-500 hover:text-plum-900">
               I already have an account
             </Link>
           </div>
 
-          <dl className="mt-9 grid grid-cols-3 gap-4 border-t border-ink-700/60 pt-6">
+          <dl className="mt-9 grid grid-cols-3 gap-4 border-t border-blush-200/60 pt-6">
             {[
               ['Held-out users evaluated', neumf?.evaluated_users?.toLocaleString()],
               ['NeuMF HR@10', fmt(neumf?.['HR@10'])],
               ['NeuMF NDCG@10', fmt(neumf?.['NDCG@10'])],
             ].map(([label, value]) => (
               <div key={label}>
-                <dt className="text-[11px] uppercase tracking-wider text-mist-400">{label}</dt>
-                <dd className="mt-1 text-xl font-bold text-white">{value ?? <NotEvaluated />}</dd>
+                <dt className="text-[11px] uppercase tracking-wider text-plum-500">{label}</dt>
+                <dd className="mt-1 text-xl font-bold text-plum-900">{value ?? <NotEvaluated />}</dd>
               </div>
             ))}
           </dl>
@@ -78,7 +78,7 @@ export default function Landing() {
                     className="grid grid-cols-4 gap-3">
           {(featured?.items || []).slice(0, 12).map((m, i) => (
             <div key={m.movie_id}
-                 className={`overflow-hidden rounded-lg border border-ink-700/70 ${i % 5 === 0 ? 'row-span-2 h-full' : 'h-40'}`}>
+                 className={`overflow-hidden rounded-lg border border-blush-200/70 ${i % 5 === 0 ? 'row-span-2 h-full' : 'h-40'}`}>
               <Poster movie={m} rounded="rounded-none" />
             </div>
           ))}
@@ -90,8 +90,8 @@ export default function Landing() {
 
       {/* How it works */}
       <section className="mx-auto max-w-7xl px-4 py-14">
-        <h2 className="text-2xl font-bold text-white">How the engine works</h2>
-        <p className="mt-2 max-w-2xl text-sm text-mist-400">
+        <h2 className="text-2xl font-bold text-plum-900">How the engine works</h2>
+        <p className="mt-2 max-w-2xl text-sm text-plum-500">
           Classical collaborative filtering scores a user-item pair with a fixed inner product.
           NeuMF keeps that linear view and adds a learned non-linear one, then fuses both.
         </p>
@@ -105,9 +105,9 @@ export default function Landing() {
               body: 'Both representations are concatenated into a final prediction layer, trained with binary cross-entropy against sampled unobserved movies.' },
           ].map(({ icon: Icon, title, body }) => (
             <div key={title} className="glass rounded-xl p-5">
-              <Icon className="h-6 w-6 text-accent-400" aria-hidden />
-              <h3 className="mt-3 font-semibold text-mist-200">{title}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-mist-400">{body}</p>
+              <Icon className="h-6 w-6 text-rose-600" aria-hidden />
+              <h3 className="mt-3 font-semibold text-plum-700">{title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-plum-500">{body}</p>
             </div>
           ))}
         </div>
@@ -117,23 +117,23 @@ export default function Landing() {
       <section className="mx-auto max-w-7xl px-4 pb-20">
         <div className="glass rounded-2xl p-6">
           <div className="flex items-center gap-2">
-            <GitCompare className="h-5 w-5 text-accent-400" />
-            <h2 className="text-lg font-bold text-white">Measured against its baselines</h2>
+            <GitCompare className="h-5 w-5 text-rose-600" />
+            <h2 className="text-lg font-bold text-plum-900">Measured against its baselines</h2>
           </div>
-          <p className="mt-1 text-xs text-mist-400">
+          <p className="mt-1 text-xs text-plum-500">
             {metrics?.protocol
               ? `Leave-one-out, ${metrics.protocol.candidates_per_user} candidates per user, identical candidate sets for every model.`
               : 'Run the evaluation suite to populate these numbers.'}
           </p>
           <div className="mt-5 overflow-x-auto">
             <table className="w-full min-w-[520px] text-left text-sm">
-              <thead className="text-[11px] uppercase tracking-wider text-mist-400">
+              <thead className="text-[11px] uppercase tracking-wider text-plum-500">
                 <tr><th className="pb-2">Model</th><th className="pb-2">HR@10</th>
                     <th className="pb-2">NDCG@10</th><th className="pb-2">ROC-AUC</th></tr>
               </thead>
-              <tbody className="divide-y divide-ink-700/60">
+              <tbody className="divide-y divide-blush-200/60">
                 {[['Popularity', pop], ['Matrix Factorization', mf], ['NeuMF', neumf]].map(([name, m]) => (
-                  <tr key={name} className={name === 'NeuMF' ? 'text-white' : 'text-mist-300'}>
+                  <tr key={name} className={name === 'NeuMF' ? 'text-plum-900' : 'text-plum-600'}>
                     <td className="py-2.5 font-semibold">{name}</td>
                     <td className="py-2.5">{fmt(m?.['HR@10']) ?? <NotEvaluated />}</td>
                     <td className="py-2.5">{fmt(m?.['NDCG@10']) ?? <NotEvaluated />}</td>
@@ -144,13 +144,13 @@ export default function Landing() {
             </table>
           </div>
           {metrics?.improvements?.['NeuMF_vs_MatrixFactorization_HR@10_pct'] != null && (
-            <p className="mt-4 text-sm text-mist-300">
+            <p className="mt-4 text-sm text-plum-600">
               NeuMF improves HR@10 by{' '}
-              <span className="font-bold text-accent-300">
+              <span className="font-bold text-rose-700">
                 {metrics.improvements['NeuMF_vs_MatrixFactorization_HR@10_pct']}%
               </span>{' '}
               over matrix factorization and{' '}
-              <span className="font-bold text-accent-300">
+              <span className="font-bold text-rose-700">
                 {metrics.improvements['NeuMF_vs_Popularity_HR@10_pct']}%
               </span>{' '}
               over the popularity baseline.

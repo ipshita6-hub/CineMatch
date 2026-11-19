@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Movie Recommender via NeuMF — Viva Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14161c; --ink-2:#39404d; --muted:#6b7483; --faint:#9aa2b1;
+  --line:#e2e6ec; --line-2:#eef1f5; --bg:#ffffff; --tint:#f7f9fc;
+  --accent:#d63f36; --accent-soft:#fdf0ef; --gold:#b8860b;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+}
+@page{ size:A4; margin:16mm 15mm 18mm 15mm; }
+@page:first{ margin:0; }
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family:'Inter',-apple-system,'Segoe UI',sans-serif;
+  color:var(--ink); background:var(--bg);
+  font-size:10.3pt; line-height:1.58; -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+h1,h2,h3,h4{ font-family:'Fraunces','Georgia',serif; font-weight:700; line-height:1.18; margin:0; }
+p{ margin:0 0 9px; }
+code,.mono{ font-family:'JetBrains Mono',monospace; font-size:8.8pt; }
+.page-break{ break-before:page; }
+.avoid-break{ break-inside:avoid; }
+
+/* ---------- cover ---------- */
+.cover{
+  height:297mm; width:210mm; position:relative; overflow:hidden; color:#fff;
+  background:
+    radial-gradient(900px 520px at 78% 8%, rgba(214,63,54,.42), transparent 62%),
+    radial-gradient(700px 480px at 10% 92%, rgba(27,175,122,.26), transparent 60%),
+    linear-gradient(165deg,#0d1017 0%,#161b26 55%,#0b0e14 100%);
+  padding:26mm 20mm; display:flex; flex-direction:column;
+}
+.cover .eyebrow{ font-size:8.6pt; letter-spacing:.22em; text-transform:uppercase; color:#ff9a93; font-weight:700; }
+.cover h1{ font-size:40pt; margin:12mm 0 0; letter-spacing:-.02em; color:#fff; }
+.cover h1 em{ font-style:normal; color:#ff8b82; }
+.cover h1 em.gold{ color:#f3c969; }
+.cover .sub{ margin-top:7mm; font-size:12pt; color:#c6ccda; max-width:140mm; line-height:1.55; }
+.cover .meta{ margin-top:auto; display:grid; grid-template-columns:repeat(2,1fr); gap:5mm 10mm; border-top:1px solid rgba(255,255,255,.18); padding-top:7mm; }
+.cover .meta div span{ display:block; font-size:7.8pt; letter-spacing:.15em; text-transform:uppercase; color:#8d95a6; margin-bottom:2px; }
+.cover .meta div strong{ font-size:11pt; font-weight:600; color:#f0f2f6; }
+.cover .kpis{ display:grid; grid-template-columns:repeat(4,1fr); gap:4mm; margin-top:9mm; }
+.cover .kpi{ background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); border-radius:10px; padding:5mm 4mm; }
+.cover .kpi b{ display:block; font-family:'Fraunces',serif; font-size:19pt; color:#fff; line-height:1; }
+.cover .kpi span{ display:block; margin-top:3mm; font-size:7.6pt; color:#a8b0c0; letter-spacing:.04em; }
+
+/* ---------- structure ---------- */
+.sec-num{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:8pt; font-weight:600;
+  color:var(--accent); background:var(--accent-soft); border-radius:5px; padding:2px 7px; margin-bottom:5px; letter-spacing:.06em; }
+h2{ font-size:20pt; letter-spacing:-.01em; margin-bottom:3mm; }
+h2 + .lede{ color:var(--ink-2); font-size:11pt; margin-bottom:6mm; max-width:160mm; }
+h3{ break-after:avoid; font-size:12.5pt; margin:7mm 0 2.5mm; }
+h4{ font-family:'Inter',sans-serif; font-size:9.6pt; font-weight:700; letter-spacing:.03em; margin:5mm 0 2mm; }
+.rule{ height:2px; background:linear-gradient(90deg,var(--accent),rgba(214,63,54,0)); margin:0 0 6mm; border-radius:2px; }
+
+/* ---------- blocks ---------- */
+.card{ break-inside:avoid; border:1px solid var(--line); border-radius:11px; padding:5mm 5.5mm; background:var(--bg); margin:0 0 4mm; }
+.card.tint{ background:var(--tint); }
+.card h4{ margin-top:0; }
+.grid2{ break-inside:avoid; display:grid; grid-template-columns:1fr 1fr; gap:4mm; }
+.grid3{ break-inside:avoid; display:grid; grid-template-columns:repeat(3,1fr); gap:4mm; }
+.callout{ break-inside:avoid; border-left:3px solid var(--accent); background:var(--accent-soft); border-radius:0 9px 9px 0; padding:4mm 5mm; margin:4mm 0; }
+.callout.gold{ border-left-color:var(--gold); background:#fdf8ec; }
+.callout.green{ border-left-color:var(--s3); background:#eefaf5; }
+.callout b{ color:var(--ink); }
+.say{ break-inside:avoid; border:1px dashed #c9d0da; border-radius:9px; background:#fcfdff; padding:4mm 5mm; margin:3mm 0; }
+.say:before{ content:'SAY THIS IN THE VIVA'; display:block; font-size:7.4pt; letter-spacing:.17em; font-weight:700; color:var(--accent); margin-bottom:2mm; }
+.say p{ font-size:10pt; font-style:italic; color:var(--ink-2); margin:0; }
+
+table{ break-inside:avoid; width:100%; border-collapse:collapse; font-size:9.3pt; margin:3mm 0; }
+th{ text-align:left; font-weight:700; font-size:7.8pt; letter-spacing:.11em; text-transform:uppercase; color:var(--muted);
+    border-bottom:1.5px solid var(--line); padding:0 7px 4px 0; }
+td{ padding:5.5px 7px 5.5px 0; border-bottom:1px solid var(--line-2); vertical-align:top; }
+tr.hl td{ background:#fff8f7; font-weight:650; }
+td.num,th.num{ font-variant-numeric:tabular-nums; }
+
+ul,ol{ margin:0 0 9px; padding-left:17px; }
+li{ margin-bottom:3.5px; }
+.tag{ display:inline-block; font-size:7.6pt; font-weight:700; letter-spacing:.07em; text-transform:uppercase;
+      padding:2px 7px; border-radius:20px; background:#eef2f7; color:var(--ink-2); }
+.tag.red{ background:var(--accent-soft); color:var(--accent); }
+.tag.green{ background:#e7f7f1; color:#12805a; }
+.tag.blue{ background:#eaf2fd; color:#1f5fab; }
+
+/* ---------- bar chart ---------- */
+.bars{ break-inside:avoid; margin:3mm 0; }
+.bar-row{ display:grid; grid-template-columns:58mm 1fr; align-items:center; gap:4mm; margin-bottom:3.5mm; }
+.bar-row .lbl{ font-size:9pt; font-weight:600; text-align:right; color:var(--ink-2); }
+.bar-track{ position:relative; height:17px; background:#f0f3f7; border-radius:4px; }
+.bar-fill{ position:absolute; inset:0 auto 0 0; border-radius:4px; display:flex; align-items:center; justify-content:flex-end; padding-right:7px; }
+.bar-fill span{ font-size:8.4pt; font-weight:700; color:#fff; font-variant-numeric:tabular-nums; }
+.bar-fill.outside span{ color:var(--ink); position:absolute; left:calc(100% + 7px); }
+
+.legend{ display:flex; gap:7mm; flex-wrap:wrap; font-size:8.6pt; color:var(--ink-2); margin:2mm 0 4mm; }
+.legend i{ width:11px; height:11px; border-radius:3px; display:inline-block; margin-right:5px; vertical-align:-1px; }
+
+.flow{ display:flex; align-items:center; gap:3mm; flex-wrap:wrap; font-size:8.6pt; margin:3mm 0; }
+.flow .node{ border:1px solid var(--line); border-radius:8px; padding:3mm 4mm; background:var(--tint); font-weight:600; text-align:center; }
+.flow .arrow{ color:var(--accent); font-weight:700; }
+
+.qa{ margin-bottom:4.5mm; break-inside:avoid; }
+.qa .q{ font-weight:700; color:var(--ink); font-size:10pt; margin-bottom:1.5mm; }
+.qa .q:before{ content:'Q'; display:inline-block; width:15px; height:15px; line-height:15px; text-align:center;
+  background:var(--accent); color:#fff; border-radius:4px; font-size:8pt; margin-right:6px; vertical-align:1px; font-family:'Inter'; }
+.qa .a{ color:var(--ink-2); font-size:9.6pt; padding-left:21px; }
+
+.foot{ position:running(footer); }
+.kv{ display:grid; grid-template-columns:auto 1fr; gap:2mm 5mm; font-size:9.3pt; }
+.kv dt{ color:var(--muted); }
+.kv dd{ margin:0; font-weight:600; font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body>
+
+<!-- ===================== COVER ===================== -->
+<section class="cover">
+  <div class="eyebrow">Polaris School of Technology · On-the-Job Training · Advanced Data Science</div>
+  <h1>Movie Recommender<br>via <em>Neural Collaborative</em><br><em class="gold">Filtering</em></h1>
+  <p class="sub">A complete guide to everything built in this project — the ideas, the architecture,
+  the numbers and the answers — written in plain language for your viva.</p>
+
+  <div class="kpis">
+    <div class="kpi"><b>20M</b><span>RATINGS LEARNED FROM</span></div>
+    <div class="kpi"><b>0.9087</b><span>NEUMF HIT RATE@10</span></div>
+    <div class="kpi"><b>+5.04%</b><span>BETTER THAN BASELINE</span></div>
+    <div class="kpi"><b>2.7ms</b><span>RESPONSE TIME</span></div>
+  </div>
+
+  <div class="meta">
+    <div><span>Student</span><strong>Ipshita Baral — MS240410700118</strong></div>
+    <div><span>Mentor</span><strong>Kanak Upadhyay</strong></div>
+    <div><span>Model</span><strong>NeuMF (He et al., WWW 2017)</strong></div>
+    <div><span>Dataset</span><strong>MovieLens 20M</strong></div>
+  </div>
+</section>
+
+<!-- ===================== 1 CONCEPTS ===================== -->
+<section class="page-break">
+  <div class="sec-num">01</div>
+  <h2>What it is &amp; why it exists</h2>
+  <div class="rule"></div>
+
+  <div class="grid2">
+    <div class="card tint">
+      <h4>The project in three lines</h4>
+      <p style="margin:0">Learns taste from 20 million real ratings, recommends movies a person will
+      probably love, and predicts how many stars they would give. Built end-to-end: model, API,
+      database, website, dashboard.</p>
+    </div>
+    <div class="card tint">
+      <h4>The problem it solves</h4>
+      <p style="margin:0">Old systems combine user and movie with a <b>fixed</b> formula (the inner
+      product). Real taste is not that simple. NeuMF <b>learns</b> the combining rule from data instead.</p>
+    </div>
+  </div>
+
+  <h3>Why the inner product is not enough</h3>
+  <p>Matrix factorization gives each user and each movie a list of numbers, multiplies them position by
+  position and adds up. That forces one rigid rule: <b>every taste dimension adds up independently</b>.
+  But someone can love action, love animation, and dislike animated action — the inner product literally
+  cannot express that. It can add ingredients but never cook them.</p>
+
+  <div class="callout">
+    <p style="margin:0"><b>Core argument.</b> The inner product is a fixed, hand-chosen interaction
+    function. NeuMF makes it <i>learnable</i> — a neural network discovers the combination rule from
+    20 million examples. That change is worth <b>+10.4% NDCG@10</b> here.</p>
+  </div>
+
+  <div class="say"><p>"Matrix factorization models the interaction with a fixed inner product, which cannot
+  capture non-linear preference structure. NeuMF keeps the linear view in its GMF branch, adds an MLP branch
+  that learns an arbitrary interaction function, and fuses them."</p></div>
+
+  <h3>Headline result — Hit Rate@10 on 80,331 held-out users</h3>
+  <div class="legend">
+    <span><i style="background:var(--s1)"></i>Popularity</span>
+    <span><i style="background:var(--s2)"></i>Matrix Factorization</span>
+    <span><i style="background:var(--s3)"></i>NeuMF (mine)</span>
+  </div>
+  <div class="bars">
+    <div class="bar-row"><div class="lbl">Popularity (no personalisation)</div>
+      <div class="bar-track"><div class="bar-fill" style="width:79.16%;background:var(--s1)"><span>0.7916</span></div></div></div>
+    <div class="bar-row"><div class="lbl">Matrix Factorization (baseline)</div>
+      <div class="bar-track"><div class="bar-fill" style="width:86.51%;background:var(--s2)"><span>0.8651</span></div></div></div>
+    <div class="bar-row"><div class="lbl">NeuMF</div>
+      <div class="bar-track"><div class="bar-fill" style="width:90.87%;background:var(--s3)"><span>0.9087</span></div></div></div>
+  </div>
+  <p style="font-size:9pt;color:var(--muted);margin-top:-1mm">All three models scored on <b>identical</b>
+  candidate lists, so the comparison is strictly like-for-like.</p>
+</section>
+
+<!-- ===================== 2 ARCHITECTURE ===================== -->
+<section class="page-break">
+  <div class="sec-num">02</div>
+  <h2>The NeuMF architecture</h2>
+  <div class="rule"></div>
+  <p class="lede">Be able to draw this from memory — it is the heart of the viva.</p>
+
+  <svg viewBox="0 0 720 320" style="width:100%;height:auto" role="img"
+       aria-label="NeuMF: a GMF branch and an MLP branch fused into one prediction layer">
+    <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 z" fill="#8b93a7"/></marker></defs>
+    <style>
+      .bx{ fill:#fff; stroke:#d6dbe4; stroke-width:1.3; }
+      .lb{ font-family:Inter,sans-serif; font-size:12px; fill:#14161c; font-weight:600; }
+      .sm{ font-family:Inter,sans-serif; font-size:10.5px; fill:#6b7483; }
+      .ln{ stroke:#8b93a7; stroke-width:1.3; fill:none; marker-end:url(#ar); }
+    </style>
+    <rect class="bx" x="8" y="140" width="78" height="30" rx="6" fill="#f2f5f9"/>
+    <text class="lb" x="47" y="160" text-anchor="middle">User ID</text>
+    <rect class="bx" x="8" y="186" width="78" height="30" rx="6" fill="#f2f5f9"/>
+    <text class="lb" x="47" y="206" text-anchor="middle">Movie ID</text>
+
+    <rect class="bx" x="130" y="26" width="134" height="32" rx="6" fill="#eaf2fd" stroke="#2a78d6"/>
+    <text class="lb" x="197" y="41" text-anchor="middle" fill="#1f5fab">GMF user vector</text>
+    <text class="sm" x="197" y="53" text-anchor="middle">32 numbers</text>
+    <rect class="bx" x="130" y="70" width="134" height="32" rx="6" fill="#eaf2fd" stroke="#2a78d6"/>
+    <text class="lb" x="197" y="85" text-anchor="middle" fill="#1f5fab">GMF movie vector</text>
+    <text class="sm" x="197" y="97" text-anchor="middle">32 numbers</text>
+
+    <rect class="bx" x="130" y="204" width="134" height="32" rx="6" fill="#fdf0e9" stroke="#eb6834"/>
+    <text class="lb" x="197" y="219" text-anchor="middle" fill="#b84a1c">MLP user vector</text>
+    <text class="sm" x="197" y="231" text-anchor="middle">32 — separate table</text>
+    <rect class="bx" x="130" y="248" width="134" height="32" rx="6" fill="#fdf0e9" stroke="#eb6834"/>
+    <text class="lb" x="197" y="263" text-anchor="middle" fill="#b84a1c">MLP movie vector</text>
+    <text class="sm" x="197" y="275" text-anchor="middle">32 — separate table</text>
+
+    <circle cx="330" cy="64" r="19" fill="#eaf2fd" stroke="#2a78d6" stroke-width="1.3"/>
+    <text class="lb" x="330" y="70" text-anchor="middle" fill="#1f5fab" font-size="16">&#215;</text>
+    <text class="sm" x="330" y="100" text-anchor="middle">multiply element-wise</text>
+    <text class="sm" x="330" y="113" text-anchor="middle">&#8594; 32 (the linear view)</text>
+
+    <rect class="bx" x="300" y="226" width="60" height="28" rx="6" fill="#fdf0e9" stroke="#eb6834"/>
+    <text class="lb" x="330" y="244" text-anchor="middle" fill="#b84a1c" font-size="11">concat</text>
+    <text class="sm" x="330" y="270" text-anchor="middle">&#8594; 64</text>
+
+    <rect class="bx" x="394" y="206" width="126" height="68" rx="7" fill="#fdf0e9" stroke="#eb6834"/>
+    <text class="lb" x="457" y="226" text-anchor="middle" fill="#b84a1c">MLP layers</text>
+    <text class="sm" x="457" y="241" text-anchor="middle">64 &#8594; 32 &#8594; 16</text>
+    <text class="sm" x="457" y="255" text-anchor="middle">ReLU + dropout 0.1</text>
+    <text class="sm" x="457" y="269" text-anchor="middle">learns the rule</text>
+
+    <rect class="bx" x="552" y="120" width="114" height="54" rx="7" fill="#e7f7f1" stroke="#1baf7a"/>
+    <text class="lb" x="609" y="140" text-anchor="middle" fill="#12805a">NeuMF layer</text>
+    <text class="sm" x="609" y="154" text-anchor="middle">concat 32+16 = 48</text>
+    <text class="sm" x="609" y="167" text-anchor="middle">&#8594; one number</text>
+    <rect class="bx" x="552" y="224" width="114" height="32" rx="6" fill="#f2f5f9"/>
+    <text class="lb" x="609" y="238" text-anchor="middle">Score (logit)</text>
+    <text class="sm" x="609" y="250" text-anchor="middle">higher = better match</text>
+
+    <path class="ln" d="M86 148 C108 130, 110 60, 128 44"/>
+    <path class="ln" d="M86 162 C106 176, 110 226, 128 220"/>
+    <path class="ln" d="M86 200 C108 186, 110 100, 128 88"/>
+    <path class="ln" d="M86 212 C106 230, 110 262, 128 266"/>
+    <path class="ln" d="M264 43 C288 47, 296 54, 308 58"/>
+    <path class="ln" d="M264 87 C288 82, 296 76, 308 70"/>
+    <path class="ln" d="M264 221 L296 237"/>
+    <path class="ln" d="M264 265 L296 246"/>
+    <path class="ln" d="M360 241 L390 241"/>
+    <path class="ln" d="M349 64 C470 64, 490 110, 548 136"/>
+    <path class="ln" d="M520 241 C536 241, 542 190, 550 166"/>
+    <path class="ln" d="M609 174 L609 220"/>
+  </svg>
+
+  <table>
+    <thead><tr><th style="width:23%">Part</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><b>Embedding</b></td><td>A short list of learned numbers summarising a user's taste or a movie's character. The model invents them during training — nobody writes them.</td></tr>
+      <tr><td><b>GMF branch</b></td><td>Multiplies user &times; movie position by position. The <i>linear</i> view — this generalises matrix factorization.</td></tr>
+      <tr><td><b>MLP branch</b></td><td>Glues both vectors end-to-end and passes them through three layers. The <i>non-linear</i> view — learns rules the inner product cannot express.</td></tr>
+      <tr><td><b>Separate tables</b></td><td>Each branch owns its embeddings. Sharing them would force both views into one representation — the paper keeps them apart deliberately.</td></tr>
+      <tr><td><b>Fusion</b></td><td>Joins GMF (32) + MLP (16) = 48 numbers, and one final layer turns that into a single score.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p style="margin:0"><b>The elegant bit:</b> remove the MLP branch and make the last layer an identity,
+    and NeuMF literally <i>becomes</i> matrix factorization. It is a strict generalisation — which is
+    exactly why beating MF is the right test.</p>
+  </div>
+</section>
+
+<!-- ===================== 3 DATA + METHOD ===================== -->
+<section class="page-break">
+  <div class="sec-num">03</div>
+  <h2>Data &amp; method</h2>
+  <div class="rule"></div>
+
+  <div class="callout gold">
+    <p style="margin:0"><b>Say this before you are asked.</b> The PRD mentions MovieLens <b>25M</b>; this
+    project uses MovieLens <b>20M</b> — the dataset actually supplied and the one the original notebook used.
+    Every number comes from 20M. It is documented in the app, the dashboard and the README, so it is a
+    recorded decision, not an oversight.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>The numbers to memorise</h4>
+      <dl class="kv">
+        <dt>Ratings used</dt><dd>19,984,024</dd>
+        <dt>Users</dt><dd>138,493</dd>
+        <dt>Movies in model</dt><dd>18,345 (27,278 catalogue)</dd>
+        <dt>Sparsity</dt><dd>99.213%</dd>
+        <dt>Average rating</dt><dd>3.52</dd>
+        <dt>Positive rate (&ge;4.0)</dt><dd>49.998%</dd>
+        <dt>Train / Val / Test</dt><dd>19.7M / 138k / 138k</dd>
+        <dt>Users actually scored</dt><dd>80,331</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h4>Preprocessing — 7 steps, 31 seconds</h4>
+      <ol style="margin:0;padding-left:16px">
+        <li>Validate shapes, types, ranges</li>
+        <li>Count missing / duplicates / orphans — <b>all zero</b></li>
+        <li>Clean: valid ratings 0.5–5.0 only</li>
+        <li>Drop users &amp; movies with &lt;5 ratings</li>
+        <li>Re-index IDs to <span class="mono">0…N-1</span> for embeddings</li>
+        <li>Build genre, year and TMDB-ID features</li>
+        <li>Popularity computed from <b>training data only</b></li>
+      </ol>
+    </div>
+  </div>
+
+  <h3>Leave-one-out split — by time, not at random</h3>
+  <svg viewBox="0 0 700 74" style="width:100%;height:auto;margin:1mm 0" role="img"
+       aria-label="Each user's ratings sorted by time: earlier ones train, second-last validates, last tests">
+    <rect x="0" y="16" width="470" height="32" rx="6" fill="#eaf2fd" stroke="#2a78d6" stroke-width="1.2"/>
+    <text x="235" y="37" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#1f5fab">TRAIN — everything earlier</text>
+    <rect x="478" y="16" width="104" height="32" rx="6" fill="#fdf0e9" stroke="#eb6834" stroke-width="1.2"/>
+    <text x="530" y="37" text-anchor="middle" font-family="Inter" font-size="11.5" font-weight="700" fill="#b84a1c">VALIDATION</text>
+    <rect x="590" y="16" width="104" height="32" rx="6" fill="#e7f7f1" stroke="#1baf7a" stroke-width="1.2"/>
+    <text x="642" y="37" text-anchor="middle" font-family="Inter" font-size="11.5" font-weight="700" fill="#12805a">TEST</text>
+    <text x="0" y="9" font-family="Inter" font-size="10.5" fill="#6b7483">first rating</text>
+    <text x="694" y="9" text-anchor="end" font-family="Inter" font-size="10.5" fill="#6b7483">most recent</text>
+    <text x="530" y="64" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#6b7483">2nd-last</text>
+    <text x="642" y="64" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#6b7483">last</text>
+  </svg>
+  <p><b>Why by time?</b> A real system predicts the future from the past. A random split would let the
+  model peek at later behaviour to explain earlier behaviour — impossible in production, so the score
+  would be dishonest. <b>Why only 80,331 users?</b> A hidden movie only counts as a right answer if the
+  user actually liked it (&ge;4.0).</p>
+
+  <h3>Negative sampling — the missing-data problem</h3>
+  <p>MovieLens records only what people <i>did</i> rate; there is no list of dislikes. A model shown only
+  positives would learn to say "yes" to everything. So for every liked movie we draw <b>4 movies the user
+  never touched</b> and treat them as probably-uninteresting — <b>re-drawn every epoch</b> so nothing is memorised.</p>
+  <div class="callout gold">
+    <p style="margin:0"><b>Honest caveat, state it yourself:</b> an unrated movie is not a confirmed dislike —
+    the user may never have heard of it. My code and docs call these "sampled unobserved interactions", never
+    "rejections".</p>
+  </div>
+
+  <h3>How the test is kept fair</h3>
+  <ul>
+    <li>Each test user gets <b>100 candidates</b>: 1 real hidden favourite + 99 never-touched movies.</li>
+    <li>That list is generated <b>once</b> with a fixed seed and re-used by <b>all three models</b>.</li>
+    <li>Ties break <b>against</b> the right answer, so a model scoring everything equally gets 0, not a lucky pass.</li>
+    <li>Code <i>asserts</i> no "unseen" movie was actually seen and no movie repeats in a list.</li>
+  </ul>
+
+  <h3>The two metrics</h3>
+  <div class="grid2">
+    <div class="card"><h4>Hit Rate@10 — did we find it?</h4>
+      <p style="margin:0">Is the hidden favourite anywhere in the top 10? Yes = 1, no = 0, averaged over all
+      users. <b>0.9087</b> means we found it for 91% of users.</p></div>
+    <div class="card"><h4>NDCG@10 — how high did we put it?</h4>
+      <p style="margin:0">Rewards placing it nearer the top. Position 1 scores 1.00, position 3 scores 0.50,
+      position 10 scores 0.29, missing scores 0. Harder, and more informative.</p></div>
+  </div>
+</section>
+
+<!-- ===================== 4 RESULTS ===================== -->
+<section class="page-break">
+  <div class="sec-num">04</div>
+  <h2>Results — every number is measured</h2>
+  <div class="rule"></div>
+  <p class="lede">80,331 held-out users · identical candidate sets · nothing estimated or invented.</p>
+
+  <table>
+    <thead><tr><th>Model</th><th class="num">HR@10</th><th class="num">NDCG@10</th><th class="num">MRR</th><th class="num">ROC-AUC</th></tr></thead>
+    <tbody>
+      <tr><td>Popularity <span class="tag">baseline</span></td><td class="num">0.7916</td><td class="num">0.5159</td><td class="num">0.4415</td><td class="num">0.9349</td></tr>
+      <tr><td>Matrix Factorization <span class="tag blue">baseline</span></td><td class="num">0.8651</td><td class="num">0.5975</td><td class="num">0.5207</td><td class="num">0.9544</td></tr>
+      <tr class="hl"><td><b>NeuMF</b> <span class="tag red">mine</span></td><td class="num"><b>0.9087</b></td><td class="num"><b>0.6596</b></td><td class="num"><b>0.5854</b></td><td class="num"><b>0.9682</b></td></tr>
+    </tbody>
+  </table>
+  <p><b>NeuMF vs MF: +5.04% HR@10, +10.40% NDCG@10.</b> &nbsp; NeuMF vs Popularity: +14.79% / +27.86%.</p>
+
+  <div class="callout">
+    <p style="margin:0"><b>Expect this question: "why is popularity already 0.79?"</b> Because the 99
+    negatives are drawn uniformly from 18,345 movies, so they are mostly obscure long-tail titles that a
+    popular hidden movie easily outranks. That is exactly why I report the baseline — it is the bar NeuMF
+    must clear, and it clears it by 14.79%.</p>
+  </div>
+
+  <h3>Star-rating prediction — a <i>separate</i> model</h3>
+  <p>A NeuMF score is an unbounded ranking number, <b>not</b> stars. Showing it as stars would be
+  fabrication. So a second model is trained with MSE on real ratings, and its output is squeezed through
+  <span class="mono">0.5 + 4.5 &times; sigmoid(x)</span> so a prediction is <i>always</i> inside the
+  MovieLens scale by construction, not by clipping.</p>
+  <table>
+    <thead><tr><th>Predictor</th><th class="num">RMSE (lower better)</th><th class="num">MAE</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td><b>My rating model</b></td><td class="num"><b>0.9064</b></td><td class="num">0.6951</td></tr>
+      <tr><td>Item-mean baseline</td><td class="num">0.9990</td><td class="num">0.7800</td></tr>
+      <tr><td>Global-mean baseline</td><td class="num">1.0825</td><td class="num">0.8600</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Training behaviour (NeuMF, validation HR@10 per epoch)</h3>
+  <div class="bars">
+    <div class="bar-row"><div class="lbl">Epoch 1</div><div class="bar-track"><div class="bar-fill" style="width:85.0%;background:#9fc4ea"><span>0.8503</span></div></div></div>
+    <div class="bar-row"><div class="lbl">Epoch 3</div><div class="bar-track"><div class="bar-fill" style="width:90.5%;background:#6ca4e0"><span>0.9051</span></div></div></div>
+    <div class="bar-row"><div class="lbl">Epoch 5</div><div class="bar-track"><div class="bar-fill" style="width:91.7%;background:#4a8cd8"><span>0.9171</span></div></div></div>
+    <div class="bar-row"><div class="lbl">Epoch 7</div><div class="bar-track"><div class="bar-fill" style="width:91.8%;background:#2a78d6"><span>0.9179</span></div></div></div>
+    <div class="bar-row"><div class="lbl">Epoch 9 — best, saved</div><div class="bar-track"><div class="bar-fill" style="width:92.3%;background:var(--s3)"><span>0.9227</span></div></div></div>
+  </div>
+  <p style="font-size:9pt;color:var(--muted);margin-top:-1mm">Training loss fell 0.2166 &#8594; 0.1278 and validation
+  kept improving, so the model was still learning rather than overfitting. Early stopping (patience 2) watched
+  validation HR@10 and kept epoch 9. MF stopped at epoch 6 with 0.8777.</p>
+
+  <div class="grid3">
+    <div class="card"><h4>Hybrid re-rank <span class="tag">stretch goal</span></h4>
+      <p style="margin:0">Blend NeuMF with genre similarity + popularity. Best blend (&alpha;=0.9, &beta;=0.1)
+      gives <b>+0.97% NDCG@10</b> — real but small.</p></div>
+    <div class="card"><h4>Diversity</h4>
+      <p style="margin:0">NeuMF surfaces <b>646</b> distinct movies vs popularity's <b>131</b> — about
+      <b>5&times; more</b> of the catalogue.</p></div>
+    <div class="card"><h4>Ablation</h4>
+      <p style="margin:0">Smaller model (dim 16, 2 negatives) scores <b>0.8505</b> — confirms the bigger
+      configuration genuinely helps.</p></div>
+  </div>
+</section>
+
+<!-- ===================== 5 SYSTEM ===================== -->
+<section class="page-break">
+  <div class="sec-num">05</div>
+  <h2>The system that was built</h2>
+  <div class="rule"></div>
+
+  <svg viewBox="0 0 720 250" style="width:100%;height:auto" role="img"
+       aria-label="End to end architecture from dataset through models and API to the React frontend">
+    <style>
+      .b2{ fill:#fff; stroke:#d6dbe4; stroke-width:1.3; }
+      .t1{ font-family:Inter,sans-serif; font-size:11.5px; font-weight:700; fill:#14161c; }
+      .t2{ font-family:Inter,sans-serif; font-size:10px; fill:#6b7483; }
+      .l2{ stroke:#8b93a7; stroke-width:1.3; fill:none; marker-end:url(#ar); }
+    </style>
+    <rect class="b2" x="6" y="96" width="112" height="52" rx="8" fill="#f2f5f9"/>
+    <text class="t1" x="62" y="118" text-anchor="middle">MovieLens 20M</text>
+    <text class="t2" x="62" y="133" text-anchor="middle">20M ratings</text>
+
+    <rect class="b2" x="146" y="96" width="120" height="52" rx="8" fill="#eaf2fd" stroke="#2a78d6"/>
+    <text class="t1" x="206" y="114" text-anchor="middle" fill="#1f5fab">Preprocessing</text>
+    <text class="t2" x="206" y="128" text-anchor="middle">clean · filter · re-index</text>
+    <text class="t2" x="206" y="140" text-anchor="middle">leave-one-out split</text>
+
+    <rect class="b2" x="294" y="20" width="128" height="40" rx="8" fill="#fdf0e9" stroke="#eb6834"/>
+    <text class="t1" x="358" y="37" text-anchor="middle" fill="#b84a1c">Popularity</text>
+    <text class="t2" x="358" y="51" text-anchor="middle">non-personalised</text>
+    <rect class="b2" x="294" y="70" width="128" height="40" rx="8" fill="#fdf0e9" stroke="#eb6834"/>
+    <text class="t1" x="358" y="87" text-anchor="middle" fill="#b84a1c">Matrix Factorization</text>
+    <text class="t2" x="358" y="101" text-anchor="middle">baseline</text>
+    <rect class="b2" x="294" y="120" width="128" height="40" rx="8" fill="#e7f7f1" stroke="#1baf7a"/>
+    <text class="t1" x="358" y="137" text-anchor="middle" fill="#12805a">NeuMF</text>
+    <text class="t2" x="358" y="151" text-anchor="middle">GMF + MLP</text>
+    <rect class="b2" x="294" y="170" width="128" height="40" rx="8" fill="#e7f7f1" stroke="#1baf7a"/>
+    <text class="t1" x="358" y="187" text-anchor="middle" fill="#12805a">Rating model</text>
+    <text class="t2" x="358" y="201" text-anchor="middle">calibrated stars</text>
+
+    <rect class="b2" x="452" y="96" width="112" height="52" rx="8" fill="#f2f5f9"/>
+    <text class="t1" x="508" y="114" text-anchor="middle">Evaluation</text>
+    <text class="t2" x="508" y="128" text-anchor="middle">one shared test</text>
+    <text class="t2" x="508" y="140" text-anchor="middle">&#8594; artifacts/</text>
+
+    <rect class="b2" x="592" y="60" width="122" height="46" rx="8" fill="#eaf2fd" stroke="#2a78d6"/>
+    <text class="t1" x="653" y="79" text-anchor="middle" fill="#1f5fab">FastAPI</text>
+    <text class="t2" x="653" y="93" text-anchor="middle">loads model once</text>
+    <rect class="b2" x="592" y="118" width="122" height="40" rx="8" fill="#f2f5f9"/>
+    <text class="t1" x="653" y="135" text-anchor="middle">PostgreSQL</text>
+    <text class="t2" x="653" y="149" text-anchor="middle">7 tables</text>
+    <rect class="b2" x="592" y="170" width="122" height="46" rx="8" fill="#fdf0e9" stroke="#eb6834"/>
+    <text class="t1" x="653" y="189" text-anchor="middle" fill="#b84a1c">React website</text>
+    <text class="t2" x="653" y="203" text-anchor="middle">10 pages + dashboard</text>
+
+    <path class="l2" d="M118 122 L142 122"/>
+    <path class="l2" d="M266 118 C280 112, 282 50, 290 42"/>
+    <path class="l2" d="M266 120 C280 116, 282 96, 290 90"/>
+    <path class="l2" d="M266 124 C280 128, 282 136, 290 138"/>
+    <path class="l2" d="M266 126 C280 142, 282 180, 290 188"/>
+    <path class="l2" d="M422 42 C440 50, 442 96, 448 110"/>
+    <path class="l2" d="M422 90 C440 96, 442 110, 448 116"/>
+    <path class="l2" d="M422 138 C440 134, 442 130, 448 128"/>
+    <path class="l2" d="M422 188 C440 180, 442 148, 448 136"/>
+    <path class="l2" d="M564 114 C578 108, 582 96, 589 88"/>
+    <path class="l2" d="M653 106 L653 114"/>
+    <path class="l2" d="M653 158 L653 166"/>
+  </svg>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>Backend — FastAPI</h4>
+      <p style="margin:0 0 4px">Model weights load <b>once at startup</b>, then every request is just a
+      lookup and a matrix multiply.</p>
+      <p style="margin:0;font-size:9.2pt;color:var(--ink-2)">Endpoints: login/register (JWT + bcrypt),
+      recommendations, star prediction, movie search, user ratings &amp; preferences, metrics, health.
+      Unknown user or missing model &#8594; <b>popularity fallback</b>, never an error.</p>
+    </div>
+    <div class="card">
+      <h4>Database — PostgreSQL, 7 tables</h4>
+      <p style="margin:0;font-size:9.2pt;color:var(--ink-2)">users · movies (27,278 seeded) · ratings ·
+      user_preferences · user_embeddings · recommendation_history · movie_metadata_cache. Managed with
+      Alembic migrations. <b>Dataset user IDs are kept strictly separate from app accounts.</b></p>
+    </div>
+    <div class="card">
+      <h4>Frontend — React + Vite + Tailwind</h4>
+      <p style="margin:0;font-size:9.2pt;color:var(--ink-2)">Landing, login, onboarding, discover, browse,
+      movie detail, recommendations, profile, and a 6-tab analytics dashboard. Light blush-pink theme. Posters
+      come from TMDB via real IDs; without a key it draws genre placeholders rather than wrong artwork.</p>
+    </div>
+    <div class="card">
+      <h4>Speed — measured, not claimed</h4>
+      <p style="margin:0;font-size:9.2pt;color:var(--ink-2)">Target was under 200&nbsp;ms. Measured
+      <b>p50 2.73&nbsp;ms, p95 3.07&nbsp;ms</b> on uncached requests. Scoring the whole 18,345-movie
+      catalogue for one user takes <b>0.88&nbsp;ms</b>, so no shortcuts are needed.</p>
+    </div>
+  </div>
+
+  <h3>The cold-start trick — your best "extra mile" story</h3>
+  <p>A brand-new account has no trained embedding, so it cannot get NeuMF recommendations. Retraining on
+  20M ratings for one signup is impossible. The solution is <b>fold-in</b>: after the user rates 3+ movies,
+  we <b>freeze every movie embedding</b> and learn only that one user's vector by gradient descent.
+  It takes about <b>0.4 seconds</b> and gives genuine NeuMF personalisation with no retraining.</p>
+  <div class="say"><p>"Below three ratings the API serves the popularity fallback and says so explicitly.
+  At three or more I fit just that user's embedding with all item weights frozen — about 400 milliseconds —
+  so a new account gets real NeuMF results without retraining the model."</p></div>
+</section>
+
+<!-- ===================== 6 QA ===================== -->
+<section class="page-break">
+  <div class="sec-num">06</div>
+  <h2>Likely viva questions</h2>
+  <div class="rule"></div>
+
+  <div class="qa"><div class="q">Why NeuMF instead of matrix factorization?</div>
+    <div class="a">MF scores a pair with a fixed inner product, which cannot represent non-linear taste.
+    NeuMF learns the interaction function instead: GMF keeps the linear part, the MLP learns the rest.
+    Worth +5.04% HR@10 and +10.40% NDCG@10 here.</div></div>
+
+  <div class="qa"><div class="q">Why do the two branches not share embeddings?</div>
+    <div class="a">Sharing would force one representation to serve two different interaction styles and
+    limit the fused model. He et al. keep them separate so each branch learns what suits it.</div></div>
+
+  <div class="qa"><div class="q">What is HR@10 and NDCG@10?</div>
+    <div class="a">HR@10 asks whether the hidden movie appears in the top 10 at all. NDCG@10 also rewards
+    putting it <i>higher</i> — rank 1 scores 1.00, rank 10 about 0.29, a miss scores 0.</div></div>
+
+  <div class="qa"><div class="q">Why is your Precision@10 only 0.09? Isn't that bad?</div>
+    <div class="a">No — there is exactly <b>one</b> relevant item per user, so the best possible
+    Precision@10 is 0.1. Precision@10 is mathematically HR@10 ÷ 10 here. I report it because the PRD asks,
+    and I state the relationship rather than presenting it as independent evidence.</div></div>
+
+  <div class="qa"><div class="q">Why 99 negatives? Why not rank the whole catalogue?</div>
+    <div class="a">99 sampled negatives is the standard He et al. protocol and keeps evaluation affordable
+    over 80,331 users. I acknowledge in my limitations that it is easier than full-catalogue ranking —
+    that is exactly why the popularity baseline already reaches 0.79.</div></div>
+
+  <div class="qa"><div class="q">How do you know there is no data leakage?</div>
+    <div class="a">The split is chronological, popularity statistics come from training data only, training
+    negatives are drawn against training history only, and validation/test rows are never training examples.
+    I also found and fixed a leak in the original notebook, which used one all-data "seen" list for both.</div></div>
+
+  <div class="qa"><div class="q">Is the predicted star rating the NeuMF output?</div>
+    <div class="a">No — and that is deliberate. The NeuMF score is an unbounded ranking logit. Stars come
+    from a separate model trained with MSE whose output is squashed into 0.5–5.0. RMSE 0.9064, beating both
+    the item-mean (0.999) and global-mean (1.083) baselines.</div></div>
+
+  <div class="qa"><div class="q">What happens for a brand-new user?</div>
+    <div class="a">Under 3 ratings: popularity fallback, clearly labelled as not personalised. From 3 ratings:
+    embedding fold-in — their vector is fitted in ~0.4s with all item weights frozen.</div></div>
+
+  <div class="qa"><div class="q">Why 20M and not the 25M in the PRD?</div>
+    <div class="a">20M is the dataset that was supplied and that the original notebook used. Mixing versions
+    would make results incomparable. The deviation is documented in the app, the dashboard and the README.</div></div>
+
+  <div class="qa"><div class="q">Did you train on all the data?</div>
+    <div class="a">Preprocessing, EDA and evaluation use all 19,984,024 interactions. Training used a seeded
+    5,000,000-positive subsample — a recorded, configurable decision stored in the checkpoint, not a hidden one.
+    One flag switches it to the full set.</div></div>
+
+  <div class="qa"><div class="q">How do you know the numbers are real?</div>
+    <div class="a">Every figure comes from a JSON artifact written by an actual evaluation run, which the API
+    serves and the dashboard displays. Anything never computed shows "Not evaluated" rather than a made-up value.
+    85 automated tests pass: 19 ML, 44 backend, 22 frontend.</div></div>
+
+  <h3>Limitations — raise these yourself, it reads as rigour</h3>
+  <div class="grid2">
+    <div class="card" style="margin:0">
+      <ul style="margin:0;padding-left:16px;font-size:9.4pt">
+        <li>MovieLens 20M, not the PRD's 25M</li>
+        <li>Trained on 5M of 9.99M positives</li>
+        <li>Sampled-negative evaluation is easier than full-catalogue</li>
+        <li>99.9% of recommendations still come from popular titles</li>
+      </ul>
+    </div>
+    <div class="card" style="margin:0">
+      <ul style="margin:0;padding-left:16px;font-size:9.4pt">
+        <li>No GMF/MLP pretraining (the paper uses it — likely headroom)</li>
+        <li>Fold-in freezes item vectors; periodic retraining still needed</li>
+        <li>Docker omitted by decision, so deployment is documented not verified</li>
+        <li>Latency measured locally, single process</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <p style="margin:0"><b>Closing line if you need one:</b> "The model works, but more importantly the
+    numbers behind it are traceable — every metric on the dashboard comes from an evaluation artifact,
+    all three models were scored on identical candidate sets, and where something was not measured the
+    system says 'Not evaluated' instead of guessing."</p>
+  </div>
+</section>
+
+</body></html>
