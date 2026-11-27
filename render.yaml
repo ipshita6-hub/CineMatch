@@ -2,13 +2,27 @@ services:
   - type: web
     name: cinematch-api
     runtime: python
-    buildCommand: pip install -r requirements.txt && python scripts/fetch_deployment_artifacts.py
+    plan: free
+    # Install the CPU-only torch wheel FIRST. requirements.txt pins torch==2.15.0,
+    # which 2.15.0+cpu satisfies, so pip never reaches PyPI's default build and its
+    # ~2.5 GB of unused NVIDIA CUDA packages. Then fetch the trained artifacts that
+    # are too large for git (SHA-256 pinned in the fetch script).
+    buildCommand: >-
+      pip install torch==2.15.0 --index-url https://download.pytorch.org/whl/cpu &&
+      pip install -r requirements.txt &&
+      python scripts/fetch_deployment_artifacts.py
     startCommand: python scripts/start_render.py
     healthCheckPath: /health
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.11
       - key: WEB_CONCURRENCY
+        value: "1"
+      # Serve NeuMF + hybrid + popularity only, skipping the MF baseline and the
+      # rating predictor: 463 MB peak instead of 580 MB, which fits the free plan's
+      # 512 MB. Remove this (or set it to "0") on a 2 GB plan to restore the model
+      # switcher and predicted star ratings.
+      - key: LIGHT_INFERENCE
         value: "1"
       - key: DATABASE_URL
         sync: false

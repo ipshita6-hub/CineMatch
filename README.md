@@ -408,6 +408,7 @@ python -c "import secrets; print(secrets.token_urlsafe(48))"   # paste into JWT_
 | `TMDB_API_KEY` | **Optional.** Without it the app uses genre placeholder artwork and makes no external calls |
 | `CORS_ORIGINS` | Comma-separated front-end origins |
 | `RECOMMENDATION_CACHE_TTL` | Response cache TTL in seconds |
+| `LIGHT_INFERENCE` | **Optional.** `1` loads only NeuMF (plus hybrid and popularity), skipping the MF baseline and the rating predictor. Peak memory 463 MB instead of 580 MB, for instances capped at 512 MB. Unset for the full feature set |
 
 `.env` is gitignored — never commit a real key.
 
@@ -485,9 +486,16 @@ files; connecting GitHub alone will not upload either.
 
 ### 1. Host the inference artifacts
 
-These four local files are ignored by Git. Upload the exact files below to trusted object storage
-that offers **direct HTTPS downloads** accessible from Render's build environment (not a web
-preview or a login page):
+These four local files are ignored by Git, so the repository does not carry them. They are
+published as assets on the **`artifacts-v1`** release of this repository, which gives direct
+HTTPS downloads that Render's build environment can reach:
+
+```
+https://github.com/ipshita6-hub/CineMatch/releases/download/artifacts-v1/<filename>
+```
+
+To host them elsewhere instead, any trusted object storage offering **direct HTTPS downloads**
+works (not a web preview or a login page):
 
 | Render environment variable | Local file | Approximate size |
 |---|---|---:|
@@ -518,6 +526,10 @@ and validate compatibility before changing models.
 4. The build installs Python 3.12 dependencies and downloads the artifacts. On service startup,
    migrations run and an **empty** movies table is seeded from the tracked catalog. Existing
    catalog and user data are preserved. The server binds to Render's `$PORT` using one worker.
+5. **Memory.** The blueprint sets `plan: free` and `LIGHT_INFERENCE=1`, which together fit the
+   free plan's 512 MB (measured 463 MB peak). The build installs the CPU-only PyTorch wheel first,
+   so pip never pulls the default CUDA build and its ~2.5 GB of unused NVIDIA packages. On a 2 GB
+   plan, drop `LIGHT_INFERENCE` to restore the model switcher and predicted star ratings.
    Automatic migrations and seeding run at startup, so use a single instance during initial setup;
    for future schema changes, back up the database and coordinate migrations before scaling.
 5. Check `https://<your-render-service>.onrender.com/health`: database should be `connected`,

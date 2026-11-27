@@ -13,6 +13,12 @@ class SeenIndex:
 
     Stored as a sorted array of ``user * num_movies + item`` keys so that
     membership for a whole batch is a single ``np.searchsorted``.
+
+    That key array is built lazily, on the first ``contains`` call. Only the
+    training negative sampler needs it; inference uses ``items_for`` alone.
+    Building it eagerly costs 152 MB of resident memory plus roughly 457 MB of
+    transient peak on the 20M-interaction index, which is enough to exhaust a
+    small deployment instance that will never call ``contains``.
     """
 
     def __init__(self, indptr: np.ndarray, indices: np.ndarray, num_users: int, num_movies: int):
@@ -20,8 +26,16 @@ class SeenIndex:
         self.indices = indices
         self.num_users = num_users
         self.num_movies = num_movies
-        users = np.repeat(np.arange(num_users, dtype=np.int64), np.diff(indptr))
-        self._keys = np.sort(users * np.int64(num_movies) + indices.astype(np.int64))
+        self._keys_cache: np.ndarray | None = None
+
+    @property
+    def _keys(self) -> np.ndarray:
+        if self._keys_cache is None:
+            users = np.repeat(np.arange(self.num_users, dtype=np.int64), np.diff(self.indptr))
+            self._keys_cache = np.sort(
+                users * np.int64(self.num_movies) + self.indices.astype(np.int64)
+            )
+        return self._keys_cache
 
     @classmethod
     def load(cls, path, num_users: int, num_movies: int) -> "SeenIndex":

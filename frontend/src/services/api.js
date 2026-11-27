@@ -3,7 +3,10 @@ import axios from 'axios'
 const baseURL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8011'
 export const TOKEN_KEY = 'cineneumf.token'
 
-export const api = axios.create({ baseURL, timeout: 20000 })
+// 90s, not 20s: a free-tier Render instance sleeps after 15 minutes idle and
+// takes roughly a minute to wake. At 20s the first request after a sleep
+// always failed, so a healthy backend looked like a broken site.
+export const api = axios.create({ baseURL, timeout: 90000 })
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem(TOKEN_KEY)

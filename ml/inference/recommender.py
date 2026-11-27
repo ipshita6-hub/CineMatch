@@ -9,6 +9,7 @@ model definitions, so the API never pulls in a training pipeline.
 from __future__ import annotations
 
 import json
+import os
 import threading
 import time
 from dataclasses import dataclass, field
@@ -113,9 +114,19 @@ class RecommenderService:
 
         self.seen = SeenIndex.load(C.MAPPING_DIR / "seen_all.npz", self.num_users, self.num_movies)
 
+        # LIGHT_INFERENCE=1 serves NeuMF and popularity only, skipping the
+        # matrix-factorization and rating-predictor checkpoints (~60 MB of
+        # resident memory). Both are already optional everywhere they are used,
+        # so this is the same state as their checkpoints being absent. Set it
+        # on memory-capped deployments; leave it unset for the full feature set.
+        light = os.environ.get("LIGHT_INFERENCE") == "1"
         self.neumf, self.neumf_ckpt = self._load(MODEL_NEUMF)
-        self.mf, self.mf_ckpt = self._load(MODEL_MF)
-        self.rating_model, self.rating_ckpt = self._load("rating")
+        if light:
+            self.mf, self.mf_ckpt = None, None
+            self.rating_model, self.rating_ckpt = None, None
+        else:
+            self.mf, self.mf_ckpt = self._load(MODEL_MF)
+            self.rating_model, self.rating_ckpt = self._load("rating")
 
         self._all_items = torch.arange(self.num_movies, dtype=torch.long, device=self.device)
 
