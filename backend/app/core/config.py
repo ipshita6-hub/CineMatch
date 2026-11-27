@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import field_validator
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -32,6 +33,16 @@ class Settings(BaseSettings):
 
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
     recommendation_cache_ttl: int = 300
+
+    @field_validator("database_url", "test_database_url", mode="before")
+    @classmethod
+    def use_psycopg3(cls, value: str) -> str:
+        # Render supplies postgresql:// URLs; the project uses psycopg 3.
+        if value.startswith("postgres://"):
+            return "postgresql+psycopg://" + value[len("postgres://"):]
+        if value.startswith("postgresql://"):
+            return "postgresql+psycopg://" + value[len("postgresql://"):]
+        return value
 
     @property
     def cors_origin_list(self) -> list[str]:

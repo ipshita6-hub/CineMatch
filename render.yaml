@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: cinematch-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt && python scripts/fetch_deployment_artifacts.py
+    startCommand: python scripts/start_render.py
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.11
+      - key: WEB_CONCURRENCY
+        value: "1"
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        sync: false
+      - key: NEUMF_ARTIFACT_URL
+        sync: false
+      - key: MF_ARTIFACT_URL
+        sync: false
+      - key: RATING_ARTIFACT_URL
+        sync: false
+      - key: SEEN_ARTIFACT_URL
+        sync: false
