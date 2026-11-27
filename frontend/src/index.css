@@ -422,6 +422,36 @@ main section { animation: section-enter .6s ease both; }
 @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes shimmer { 100% { transform: translateX(100%); } }
 
+/* Floating capsule inspired by the supplied navigation reference. */
+.editorial-header { padding: 16px 16px 0; border: 0; background: linear-gradient(180deg, rgba(9,9,10,.85), transparent); backdrop-filter: none; }
+.editorial-nav { width: max-content; max-width: 100%; min-height: 66px; padding: 7px; border: 1px solid rgba(255,255,255,.11); border-radius: 999px; background: rgba(29,29,30,.97); box-shadow: 0 18px 40px rgba(0,0,0,.36), inset 0 1px rgba(255,255,255,.08); }
+.editorial-nav::before { display: none; }
+.nav-logo { display: flex; flex: none; padding: 0; }
+.nav-logo > span:not(.brand-symbol) { display: none; }
+.nav-logo .brand-symbol { width: 50px; height: 50px; background: #fafafa; border-radius: 50%; box-shadow: none; transition: transform .4s ease; }
+.nav-logo .brand-symbol::after { display: none; }
+.nav-logo .brand-symbol > span { color: #1d1d1e; font-size: 1.15rem; font-weight: 900; }
+.nav-logo:hover .brand-symbol { transform: rotate(-12deg); }
+.editorial-nav .editorial-links { flex: none; justify-content: center; gap: 0; padding: 0 .55rem; }
+.editorial-nav .editorial-link { height: 50px; padding: 0 1.15rem; border: 0; background: transparent; color: #f2f2f2; font-size: .94rem; font-weight: 500; white-space: nowrap; }
+.editorial-nav .editorial-link[aria-current="page"] { color: #e8b84b; }
+.nav-roll { display: block; height: 1.35em; overflow: hidden; line-height: 1.35; }
+.nav-roll > span { display: block; transition: transform .35s cubic-bezier(.22,1,.36,1); }
+.editorial-link:hover .nav-roll > span, .editorial-link:focus-visible .nav-roll > span { transform: translateY(-100%); }
+.editorial-nav .account-menu { margin: 0; }
+.editorial-nav .account-menu summary { display: flex; min-width: 145px; max-width: 210px; height: 50px; justify-content: center; gap: .5rem; padding: 0 1.1rem; border-radius: 999px; background: #fafafa; color: #1d1d1e; font-size: .86rem; font-weight: 650; transition: background .25s, transform .25s; }
+.editorial-nav .account-menu summary:hover { background: #e8b84b; transform: scale(.98); }
+.account-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nav-search-panel { display: flex; align-items: center; gap: .75rem; width: min(420px, calc(100% - 32px)); margin: 10px auto 0; padding: .7rem .8rem .7rem 1rem; border: 1px solid rgba(255,255,255,.15); border-radius: 20px; background: #1d1d1e; color: #ddd; box-shadow: 0 18px 40px rgba(0,0,0,.4); animation: page-enter .25s ease both; }
+.nav-search-panel input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: white; font-size: .9rem; }
+.nav-search-panel button { padding: .55rem .85rem; border-radius: 999px; background: #fafafa; color: #161616; font-size: .8rem; font-weight: 700; }
+@media (max-width: 1023px) {
+  .editorial-nav .editorial-links, .editorial-nav .account-menu { display: none; }
+  .editorial-nav { width: min(100%, 440px); }
+  .editorial-nav .mobile-menu-button { display: grid; width: 50px; height: 50px; border: 0; border-radius: 50%; background: #fafafa; color: #1d1d1e; }
+  .editorial-mobile { width: min(440px, calc(100% - 32px)); margin: 10px auto 0; border: 1px solid rgba(255,255,255,.12); border-radius: 22px; }
+}
+
 /* ============================================================
    Responsive
    ============================================================ */
@@ -437,8 +467,8 @@ main section { animation: section-enter .6s ease both; }
   .editorial-nav .mobile-menu-button { display: none; }
 }
 @media (max-width: 767px) {
-  .editorial-header { padding: 0 16px; }
-  .editorial-nav { min-height: 68px; padding: 0; }
+  .editorial-header { padding: 12px 16px 0; }
+  .editorial-nav { min-height: 64px; padding: 6px; }
   .dashboard-feature { min-height: 560px; }
   .dashboard-feature .feature-poster { width: 115px; right: 7%; top: 8%; bottom: auto; opacity: .75; }
   .cinema-data-grid > div { padding: 1rem .6rem; min-height: 110px; }
