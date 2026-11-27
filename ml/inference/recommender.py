@@ -301,8 +301,10 @@ class RecommenderService:
     def predict_rating(self, movie_idx: int, user_idx: int | None = None,
                        vectors: UserVectors | None = None) -> dict:
         if self.rating_model is None:
-            return {"status": "unavailable",
-                    "detail": "Rating-prediction model has not been trained."}
+            detail = ("Rating prediction is disabled on this instance to stay within "
+                      "its memory limit." if os.environ.get("LIGHT_INFERENCE") == "1"
+                      else "Rating-prediction model has not been trained.")
+            return {"status": "unavailable", "detail": detail}
         item = torch.tensor([int(movie_idx)], dtype=torch.long)
         if vectors is not None and vectors.rating_gmf is not None:
             pred = self.rating_model.forward_from_user_vectors(
