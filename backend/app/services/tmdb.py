@@ -36,6 +36,7 @@ class TMDBService:
         self.failures = 0
         self.lookups = 0
         self.skipped_over_budget = 0
+        self.last_status: int | str | None = None
 
     @property
     def client(self) -> httpx.Client:
@@ -60,11 +61,18 @@ class TMDBService:
                 params={"api_key": settings.tmdb_api_key},
             )
             if r.status_code != 200:
-                logger.info("tmdb lookup %s returned %s", tmdb_id, r.status_code)
+                # A non-200 is a failure too. Counting only exceptions meant a
+                # rejected API key (401) reported zero failures, which made a
+                # misconfigured key look like a clean run.
+                self.failures += 1
+                self.last_status = r.status_code
+                logger.warning("tmdb lookup %s returned %s", tmdb_id, r.status_code)
                 return None
+            self.last_status = 200
             return r.json()
         except Exception as exc:                      # network, timeout, parse
             self.failures += 1
+            self.last_status = "exception"
             logger.warning("tmdb lookup failed for %s: %s", tmdb_id, exc)
             return None
 
@@ -117,6 +125,7 @@ class TMDBService:
     def status(self) -> dict:
         return {"enabled": self.enabled, "lookups": self.lookups,
                 "failures": self.failures,
+                "last_status": self.last_status,
                 "skipped_over_budget": self.skipped_over_budget,
                 "max_inline_lookups": self.MAX_INLINE_LOOKUPS}
 
