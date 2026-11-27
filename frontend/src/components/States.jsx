@@ -42,7 +42,7 @@ export function SkeletonRow({ count = 6, height = 'h-64' }) {
   return (
     <div className="flex gap-4 overflow-hidden">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className={`skeleton w-44 shrink-0 rounded-xl ${height}`} />
+        <div key={i} className={`skeleton w-[clamp(8.5rem,40vw,11rem)] shrink-0 rounded-xl ${height}`} />
       ))}
     </div>
   )

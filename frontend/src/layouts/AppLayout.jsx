@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import Brand from '../components/Brand'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ChevronDown, LogOut, Menu, Search, User, X } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
@@ -25,7 +26,7 @@ export default function AppLayout() {
       <div className="dashboard-ambient" aria-hidden="true"><span /><span /></div>
       <header className="editorial-header sticky top-0 z-40" onKeyDown={(event) => { if (event.key === 'Escape') setOpen(false) }}>
         <div className="editorial-nav mx-auto flex max-w-[1600px] items-center gap-3 px-4 sm:px-5">
-          <Link to="/app" className="editorial-brand" onClick={() => setOpen(false)}><span className="brand-symbol"><span>C</span></span><span>Cine<span className="brand-accent">Match</span></span></Link>
+          <Brand to="/app" onClick={() => setOpen(false)} />
           <nav className="editorial-links hidden lg:flex" aria-label="Main navigation">{NAV.map(({ to, label, end }) => <NavLink key={to} to={to} end={end} className="editorial-link">{({ isActive }) => <><span>{label}</span>{isActive && <motion.span layoutId="active-navigation" className="nav-active-surface" transition={reduced ? { duration: 0 } : { type: 'spring', stiffness: 350, damping: 32 }} />}</>}</NavLink>)}</nav>
           <form onSubmit={submitSearch} className="editorial-search ml-auto hidden sm:flex"><Search size={17} aria-hidden /><input value={search} onChange={(event) => setSearch(event.target.value)} aria-label="Search movies" placeholder="Search movies" /></form>
           <details className="account-menu hidden lg:block"><summary aria-label="Account menu"><span className="account-avatar">{user?.username?.[0]?.toUpperCase() || <User size={17} />}</span><ChevronDown size={14} /></summary><div className="account-popover"><p>Signed in as <strong>{user?.username || 'Movie lover'}</strong></p><Link to="/app/profile" onClick={(event) => { event.currentTarget.closest('details').open = false }}><User size={16} /> My profile</Link><button type="button" onClick={handleLogout}><LogOut size={16} /> Sign out</button></div></details>
