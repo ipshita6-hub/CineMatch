@@ -10,7 +10,6 @@ import Browse from './pages/Browse'
 import MovieDetail from './pages/MovieDetail'
 import Recommendations from './pages/Recommendations'
 import Profile from './pages/Profile'
-import Analytics from './pages/Analytics'
 
 export default function App() {
   return (
@@ -38,7 +37,7 @@ export default function App() {
         <Route path="movies" element={<Browse />} />
         <Route path="movies/:movieId" element={<MovieDetail />} />
         <Route path="recommendations" element={<Recommendations />} />
-        <Route path="analytics" element={<Analytics />} />
+        <Route path="analytics" element={<Navigate to="/app" replace />} />
         <Route path="profile" element={<Profile />} />
       </Route>
       <Route path="/movies/:movieId" element={<Navigate to="/app" replace />} />

@@ -1,88 +1,40 @@
 import { useState } from 'react'
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { BarChart3, Clapperboard, Compass, LogOut, Menu, Sparkles, User, X } from 'lucide-react'
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { motion, useReducedMotion } from 'framer-motion'
+import { ChevronDown, LogOut, Menu, Search, User, X } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 
 const NAV = [
-  { to: '/app', label: 'Discover', icon: Compass, end: true },
-  { to: '/app/movies', label: 'Browse', icon: Clapperboard },
-  { to: '/app/recommendations', label: 'For you', icon: Sparkles },
-  { to: '/app/analytics', label: 'Analytics', icon: BarChart3 },
-  { to: '/app/profile', label: 'Profile', icon: User },
+  { to: '/app', label: 'Home', end: true },
+  { to: '/app/movies', label: 'Explore' },
+  { to: '/app/recommendations', label: 'For you' },
 ]
 
 export default function AppLayout() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
+  const reduced = useReducedMotion()
   const [open, setOpen] = useState(false)
-
-  const handleLogout = async () => {
-    await logout()
-    navigate('/')
-  }
-
-  const linkClass = ({ isActive }) =>
-    `flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition ${
-      isActive ? 'bg-rose-500/15 text-rose-700' : 'text-plum-500 hover:bg-blush-100 hover:text-plum-700'
-    }`
+  const [search, setSearch] = useState('')
+  const handleLogout = async () => { await logout(); setOpen(false); navigate('/') }
+  const submitSearch = (event) => { event.preventDefault(); navigate(`/app/movies?search=${encodeURIComponent(search.trim())}`); setOpen(false) }
 
   return (
-    <div className="min-h-screen">
-      <header className="sticky top-0 z-40 border-b border-blush-200/60 bg-blush-50/85 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
-          <Link to="/app" className="flex items-center gap-2">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-rose-500 to-rose-700 font-black text-white">
-              C
-            </span>
-            <span className="text-sm font-extrabold tracking-tight text-plum-700">
-              Cine<span className="text-rose-600">Match</span>
-            </span>
-          </Link>
-
-          <nav className="ml-4 hidden items-center gap-1 md:flex">
-            {NAV.map(({ to, label, icon: Icon, end }) => (
-              <NavLink key={to} to={to} end={end} className={linkClass}>
-                <Icon className="h-4 w-4" aria-hidden /> {label}
-              </NavLink>
-            ))}
-          </nav>
-
-          <div className="ml-auto flex items-center gap-2">
-            <span className="hidden text-xs text-plum-500 sm:block">{user?.username}</span>
-            <button type="button" onClick={handleLogout}
-              className="hidden items-center gap-1.5 rounded-lg border border-blush-200 px-3 py-1.5 text-xs font-semibold text-plum-600 transition hover:border-rose-500 hover:text-plum-900 md:flex">
-              <LogOut className="h-3.5 w-3.5" /> Sign out
-            </button>
-            <button type="button" aria-label="Toggle navigation" onClick={() => setOpen((o) => !o)}
-              className="rounded-lg border border-blush-200 p-2 text-plum-600 md:hidden">
-              {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            </button>
-          </div>
+    <div className="dashboard-shell relative mx-auto min-h-screen max-w-[1800px]">
+      <div className="dashboard-ambient" aria-hidden="true"><span /><span /></div>
+      <header className="editorial-header sticky top-0 z-40" onKeyDown={(event) => { if (event.key === 'Escape') setOpen(false) }}>
+        <div className="editorial-nav mx-auto flex max-w-[1600px] items-center gap-3 px-4 sm:px-5">
+          <Link to="/app" className="editorial-brand" onClick={() => setOpen(false)}><span className="brand-symbol"><span>C</span></span><span>Cine<span className="brand-accent">Match</span></span></Link>
+          <nav className="editorial-links hidden lg:flex" aria-label="Main navigation">{NAV.map(({ to, label, end }) => <NavLink key={to} to={to} end={end} className="editorial-link">{({ isActive }) => <><span>{label}</span>{isActive && <motion.span layoutId="active-navigation" className="nav-active-surface" transition={reduced ? { duration: 0 } : { type: 'spring', stiffness: 350, damping: 32 }} />}</>}</NavLink>)}</nav>
+          <form onSubmit={submitSearch} className="editorial-search ml-auto hidden sm:flex"><Search size={17} aria-hidden /><input value={search} onChange={(event) => setSearch(event.target.value)} aria-label="Search movies" placeholder="Search movies" /></form>
+          <details className="account-menu hidden lg:block"><summary aria-label="Account menu"><span className="account-avatar">{user?.username?.[0]?.toUpperCase() || <User size={17} />}</span><ChevronDown size={14} /></summary><div className="account-popover"><p>Signed in as <strong>{user?.username || 'Movie lover'}</strong></p><Link to="/app/profile" onClick={(event) => { event.currentTarget.closest('details').open = false }}><User size={16} /> My profile</Link><button type="button" onClick={handleLogout}><LogOut size={16} /> Sign out</button></div></details>
+          <button type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? 'Close navigation' : 'Open navigation'} aria-controls="dashboard-navigation" aria-expanded={open} className="mobile-menu-button ml-auto lg:hidden">{open ? <X size={20} /> : <Menu size={20} />}</button>
         </div>
-
-        {open && (
-          <nav className="space-y-1 border-t border-blush-200/60 px-4 py-3 md:hidden">
-            {NAV.map(({ to, label, icon: Icon, end }) => (
-              <NavLink key={to} to={to} end={end} className={linkClass} onClick={() => setOpen(false)}>
-                <Icon className="h-4 w-4" aria-hidden /> {label}
-              </NavLink>
-            ))}
-            <button type="button" onClick={handleLogout}
-              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-plum-500 hover:text-plum-900">
-              <LogOut className="h-4 w-4" /> Sign out
-            </button>
-          </nav>
-        )}
+        {open && <nav id="dashboard-navigation" className="editorial-mobile lg:hidden" aria-label="Mobile navigation"><form onSubmit={submitSearch} className="editorial-search flex sm:hidden"><Search size={16} aria-hidden /><input value={search} onChange={(event) => setSearch(event.target.value)} aria-label="Search movies" placeholder="Search films" /></form>{[...NAV, { to: '/app/profile', label: 'My profile' }].map(({ to, label, end }) => <NavLink key={to} to={to} end={end} className="editorial-link" onClick={() => setOpen(false)}>{label}</NavLink>)}<button type="button" onClick={handleLogout} className="editorial-mobile-logout"><LogOut size={16} /> Sign out</button></nav>}
       </header>
-
-      <main className="mx-auto max-w-7xl px-4 py-6">
-        <Outlet />
-      </main>
-
-      <footer className="mx-auto max-w-7xl px-4 pb-10 pt-6 text-xs text-plum-500">
-        NeuMF (He et al., WWW 2017) trained on MovieLens 20M · the PRD specifies MovieLens 25M;
-        this project uses the 20M release that was supplied.
-      </footer>
+      <main className="dashboard-main mx-auto max-w-[1600px] px-4 py-6 sm:px-8"><motion.div key={location.pathname} initial={reduced ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .4, ease: 'easeOut' }}><Outlet /></motion.div></main>
+      <footer className="mx-auto max-w-[1600px] px-4 pb-10 pt-6 text-xs text-plum-500 sm:px-8">NeuMF trained on MovieLens 20M · the PRD specifies MovieLens 25M; this project uses the supplied 20M release.</footer>
     </div>
   )
 }

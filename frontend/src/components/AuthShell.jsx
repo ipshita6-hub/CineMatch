@@ -8,9 +8,9 @@ export default function AuthShell({ title, subtitle, children, footer }) {
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-rose-500 to-rose-700 font-black text-white">C</span>
           <span className="font-extrabold tracking-tight">Cine<span className="text-rose-600">Match</span></span>
         </Link>
-        <div className="glass rounded-2xl p-7">
-          <h1 className="text-xl font-bold text-plum-900">{title}</h1>
-          {subtitle && <p className="mt-1 text-sm text-plum-500">{subtitle}</p>}
+        <div className="glass rounded-3xl p-8 shadow-2xl shadow-black/50">
+          <h1 className="text-3xl font-extrabold tracking-tight text-plum-900">{title}</h1>
+          {subtitle && <p className="mt-2 text-sm leading-relaxed text-plum-500">{subtitle}</p>}
           <div className="mt-6">{children}</div>
         </div>
         {footer && <p className="mt-5 text-center text-sm text-plum-500">{footer}</p>}

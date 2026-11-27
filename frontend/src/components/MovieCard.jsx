@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
-import { Star, TrendingUp } from 'lucide-react'
+import { ArrowUpRight, Star, TrendingUp } from 'lucide-react'
 import Poster from './Poster'
 
 export default function MovieCard({ movie, showScore = false, rank = null, compact = false }) {
   const year = movie.release_year
   return (
     <Link
-      to={`/movies/${movie.movie_id}`}
-      className={`card-hover group relative block overflow-hidden rounded-xl border border-blush-200/70 bg-card ${
+      to={`/app/movies/${movie.movie_id}`}
+      className={`card-hover group relative block overflow-hidden rounded-2xl border border-white/10 bg-card ${
         compact ? 'w-36' : 'w-44'
       } shrink-0`}
     >
@@ -19,14 +19,15 @@ export default function MovieCard({ movie, showScore = false, rank = null, compa
           </span>
         )}
         {movie.user_rating != null && (
-          <span className="absolute right-2 top-2 flex items-center gap-1 rounded-md bg-gold-400/90 px-1.5 py-0.5 text-[11px] font-bold text-plum-900">
+          <span className="absolute right-2 top-2 flex items-center gap-1 rounded-md bg-gold-400/90 px-1.5 py-0.5 text-[11px] font-bold text-black">
             <Star className="h-3 w-3 fill-current" /> {movie.user_rating}
           </span>
         )}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-scrim-900 to-transparent" />
+        <span className="movie-card-action absolute bottom-3 right-3 grid h-9 w-9 place-items-center rounded-full border border-white/30 bg-black/40 text-white backdrop-blur-md" aria-hidden="true"><ArrowUpRight size={16} /></span>
       </div>
 
-      <div className="space-y-1 p-3">
+      <div className="space-y-1.5 p-4">
         <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-plum-700 group-hover:text-plum-900">
           {movie.title}
         </h3>

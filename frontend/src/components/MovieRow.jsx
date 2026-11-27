@@ -13,11 +13,11 @@ export default function MovieRow({
   }
 
   return (
-    <section className="space-y-3">
+    <section className="movie-shelf space-y-4">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <h2 className="text-lg font-bold text-plum-700">{title}</h2>
-          {subtitle && <p className="text-xs text-plum-500">{subtitle}</p>}
+          <h2 className="text-xl font-bold tracking-tight text-plum-700">{title}</h2>
+          {subtitle && <p className="mt-1 text-xs text-plum-500">{subtitle}</p>}
         </div>
         {!loading && !error && movies?.length > 4 && (
           <div className="hidden gap-1 sm:flex">
@@ -41,8 +41,8 @@ export default function MovieRow({
       {!loading && !error && movies?.length > 0 && (
         <div ref={scroller} className="no-scrollbar flex gap-4 overflow-x-auto pb-2">
           {movies.map((m, i) => (
-            <MovieCard key={m.movie_id} movie={m} showScore={showScore}
-                       rank={showRank ? m.rank ?? i + 1 : null} />
+            <div key={m.movie_id} className="shelf-item" style={{ '--item-delay': `${Math.min(i, 7) * 55}ms` }}><MovieCard movie={m} showScore={showScore}
+                       rank={showRank ? m.rank ?? i + 1 : null} /></div>
           ))}
         </div>
       )}

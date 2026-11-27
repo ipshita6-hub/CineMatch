@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { ChevronLeft, ChevronRight, Search, SlidersHorizontal } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import { movieApi } from '../services/api'
@@ -13,13 +14,16 @@ const SORTS = [
 ]
 
 export default function Browse() {
-  const [search, setSearch] = useState('')
-  const [debounced, setDebounced] = useState('')
+  const [searchParams] = useSearchParams()
+  const [search, setSearch] = useState(searchParams.get('search') || '')
+  const [debounced, setDebounced] = useState(searchParams.get('search') || '')
   const [genre, setGenre] = useState('')
   const [sort, setSort] = useState('popularity')
   const [minYear, setMinYear] = useState('')
   const [maxYear, setMaxYear] = useState('')
   const [page, setPage] = useState(1)
+
+  useEffect(() => { const query = searchParams.get('search') || ''; setSearch(query); setDebounced(query); setPage(1) }, [searchParams])
 
   useEffect(() => {
     const t = setTimeout(() => { setDebounced(search); setPage(1) }, 350)

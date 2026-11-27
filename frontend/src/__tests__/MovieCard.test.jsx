@@ -36,6 +36,6 @@ describe('MovieCard', () => {
 
   it('links to the movie detail route', () => {
     renderCard({ movie })
-    expect(screen.getByRole('link')).toHaveAttribute('href', '/movies/2571')
+    expect(screen.getByRole('link')).toHaveAttribute('href', '/app/movies/2571')
   })
 })

@@ -35,10 +35,10 @@ export const CURVE = { train: '#3987e5', validation: '#d95926' }
  */
 export const SEQ = ['#a8cdf2', '#6fa3df', '#3e82cc', '#2a5d9e', '#1a3d6b']
 
-export const AXIS = '#7a5c67'
-export const GRID = 'rgba(122,92,103,0.20)'
-export const SURFACE = '#fbf1f3'
-export const TEXT = '#4a2f38'
+export const AXIS = '#aab8d1'
+export const GRID = 'rgba(170,200,255,0.14)'
+export const SURFACE = '#12182a'
+export const TEXT = '#e8efff'
 
 export const axisProps = {
   stroke: AXIS,
@@ -49,7 +49,7 @@ export const axisProps = {
 
 export const tooltipStyle = {
   contentStyle: {
-    background: '#ffffff',
+    background: '#192137',
     border: '1px solid rgba(107,74,85,0.18)',
     borderRadius: 10,
     // A white tooltip needs a shadow to separate from a near-white card.
@@ -57,6 +57,6 @@ export const tooltipStyle = {
     fontSize: 12,
     color: TEXT,
   },
-  labelStyle: { color: '#4a2f38', fontWeight: 600, marginBottom: 2 },
+  labelStyle: { color: '#eeeeee', fontWeight: 600, marginBottom: 2 },
   cursor: { fill: 'rgba(107,74,85,0.07)' },
 }
