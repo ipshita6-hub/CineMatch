@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 
@@ -38,7 +40,25 @@ class SeenIndex:
         return self._keys_cache
 
     @classmethod
-    def load(cls, path, num_users: int, num_movies: int) -> "SeenIndex":
+    def load(cls, path, num_users: int, num_movies: int, mmap: bool = True) -> "SeenIndex":
+        """Load the index, memory-mapping the big array when it is available.
+
+        ``indices`` is ~76 MB of int32 and is the largest single allocation the
+        inference process makes. Read from the .npz it is anonymous memory: it
+        counts against the container's limit and the kernel cannot reclaim it.
+        Memory-mapped from a .npy it is file-backed and read-only, so the OS can
+        evict pages under pressure instead of the process being OOM-killed.
+
+        ``scripts/prepare_mmap_artifacts.py`` writes the sidecar .npy files; if
+        they are absent this falls back to the .npz and behaves exactly as before.
+        """
+        path = Path(path)
+        indices_npy = path.with_name(path.stem + "_indices.npy")
+        indptr_npy = path.with_name(path.stem + "_indptr.npy")
+        if mmap and indices_npy.is_file() and indptr_npy.is_file():
+            # indptr stays resident: it is ~1 MB and every lookup reads it.
+            return cls(np.load(indptr_npy), np.load(indices_npy, mmap_mode="r"),
+                       num_users, num_movies)
         z = np.load(path)
         return cls(z["indptr"], z["indices"], num_users, num_movies)
 

@@ -10,7 +10,8 @@ services:
     buildCommand: >-
       pip install torch==2.15.0 --index-url https://download.pytorch.org/whl/cpu &&
       pip install -r requirements.txt &&
-      python scripts/fetch_deployment_artifacts.py
+      python scripts/fetch_deployment_artifacts.py &&
+      python scripts/prepare_mmap_artifacts.py
     startCommand: python scripts/start_render.py
     healthCheckPath: /health
     envVars:
@@ -19,9 +20,13 @@ services:
       - key: WEB_CONCURRENCY
         value: "1"
       # Serve NeuMF + hybrid + popularity only, skipping the MF baseline and the
-      # rating predictor: 463 MB peak instead of 580 MB, which fits the free plan's
-      # 512 MB. Remove this (or set it to "0") on a 2 GB plan to restore the model
-      # switcher and predicted star ratings.
+      # rating predictor. Measured in the uvicorn process, with the memory-mapped
+      # seen index in place:
+      #   this config          442 MB idle / 469 MB under load   (fits 512 MB)
+      #   all four models      558 MB idle / 585 MB under load   (OOM-killed)
+      # Without the mmap sidecars it was 520 / 525, which is what crash-looped the
+      # free instance. Remove this on a 2 GB plan to restore the model switcher and
+      # predicted star ratings.
       - key: LIGHT_INFERENCE
         value: "1"
       - key: DATABASE_URL

@@ -2,6 +2,8 @@
 data/
 artifacts/checkpoints/*.pt
 artifacts/mappings/*.npz
+# Memory-mappable sidecars, regenerated at deploy by scripts/prepare_mmap_artifacts.py
+artifacts/mappings/*.npy
 artifacts/metrics/*.npz
 
 # Secrets
